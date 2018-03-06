@@ -1,0 +1,19 @@
+<add name='BogusRead' read-only='true' >
+  <connections>
+    <add name='input' provider='sqlserver' database='Junk' />
+  </connections>
+  <entities>
+    <add name='BogusStar' page='1' size='10'>
+      <order>
+        <add field='Identity' />
+      </order>
+      <fields>
+        <add name='Identity' type='int' />
+        <add name='FirstName' />
+        <add name='LastName' />
+        <add name='Stars' type='byte' />
+        <add name='Reviewers' type='int' />
+      </fields>
+    </add>
+  </entities>
+</add>

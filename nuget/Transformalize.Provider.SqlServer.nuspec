@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Transformalize.Provider.SqlServer</id>
+    <version>0.3.4-beta</version>
+    <title>Transformalize Transform using SqlServer</title>
+    <authors>Dale Newman</authors>
+    <owners>Dale Newman</owners>
+    <licenseUrl>https://github.com/dalenewman/Transformalize.Provider.SqlServer/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/dalenewman/Transformalize.Provider.SqlServer</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Transformalize Transform using SqlServer</description>
+    <releaseNotes>initial release</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>etl</tags>
+    <dependencies>
+      <group targetFramework="net452">
+        <dependency id="Transformalize.Provider.Ado" version="0.3.5-beta" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\src\Transformalize.Provider.SqlServer\bin\Release\Transformalize.Provider.SqlServer.dll" target="lib\net452\Transformalize.Provider.SqlServer.dll" />
+  </files>
+</package>
