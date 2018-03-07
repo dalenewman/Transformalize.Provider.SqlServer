@@ -99,7 +99,6 @@ namespace IntegrationTests {
 
                     Assert.AreEqual(10, rows.Count);
 
-
                 }
             }
         }

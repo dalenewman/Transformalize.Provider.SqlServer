@@ -1,27 +1,12 @@
-﻿<add name="NorthWind" 
-     mode="@[Mode]" 
-     environment="test"
-     max-memory="52 mb">
+﻿<add name="NorthWind" mode="@[Mode]">
 
-  <!-- schedule="0/10 * 3-23 ? * MON-SAT *" -->
-  <environments >
-    <add name="prod">
-      <parameters>
-        <add name="SqlServer" value="127.0.0.1" />
-        <add name="Mode" value="default" />
-      </parameters>
-    </add>
-    <add name="test" >
-      <parameters>
-        <add name="SqlServer" value="localhost" />
-        <add name="Mode" value="default" />
-      </parameters>
-    </add>
-  </environments>
+  <parameters>
+    <add name="Mode" value="default" />
+  </parameters>
 
   <connections>
     <add name="input" provider="sqlserver" database="NorthWind" />
-    <add name="output" provider="sqlserver" database="NorthWindStar" port="1433" />
+    <add name="output" provider="sqlserver" database="TflNorthWind" />
   </connections>
 
   <maps>
@@ -30,9 +15,7 @@
 
   <entities>
 
-    <add name="Order Details"
-         version="RowVersion"
-         prefix="OrderDetails">
+    <add name="Order Details" version="RowVersion" prefix="OrderDetails">
       <fields>
         <add name="Discount" type="single" ></add>
         <add name="OrderID" type="int" primary-key="true"></add>
@@ -46,7 +29,7 @@
              type="decimal"
              precision="19"
              scale="4"
-             t="copy(OrderDetailsQuantity,OrderDetailsUnitPrice,OrderDetailsDiscount).cs(OrderDetailsQuantity * (OrderDetailsUnitPrice * (1-Convert.ToDecimal(OrderDetailsDiscount))))">
+             t="cs(OrderDetailsQuantity * (OrderDetailsUnitPrice * (1-Convert.ToDecimal(OrderDetailsDiscount))))">
         </add>
       </calculated-fields>
     </add>
@@ -217,7 +200,7 @@
   <calculated-fields>
     <add name="CountryExchange"
          length="128"
-         t="copy(SuppliersCountry,OrdersShipCountry).format(Shipping from {0} to {1})"/>
+         t="format(Shipping from {0} to {1})"/>
     <add name='Test' t='copy(SuppliersCountry,OrdersShipCountry).cs(string.Format("{0} to {1}",SuppliersCountry,OrdersShipCountry))' />
   </calculated-fields>
 
