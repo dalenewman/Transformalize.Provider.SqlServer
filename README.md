@@ -66,8 +66,3 @@ This reads 10 rows of bogus data from a SqlServer database:
 8,Harold,Blanda,4,125
 9,Willie,Heaney,5,342
 10,Sophie,Hand,2,176</pre>
-
-### Notes
-
-- Tested with MariaDb 10.2
-- You have to provider `user` and `password`
