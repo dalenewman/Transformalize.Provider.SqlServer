@@ -182,18 +182,22 @@ namespace Transformalize.Providers.SqlServer.Autofac {
                     if (entity.Delete) {
 
                         // register input keys and hashcode reader if necessary
-                        builder.Register(ctx => {
-                            var inputContext = ctx.ResolveNamed<InputContext>(entity.Key);
-                            var rowCapacity = inputContext.Entity.GetPrimaryKey().Count();
-                            var rowFactory = new RowFactory(rowCapacity, false, true);
-                            return new AdoReader(
-                                inputContext,
-                                entity.GetPrimaryKey(),
-                                ctx.ResolveNamed<IConnectionFactory>(inputContext.Connection.Key),
-                                rowFactory,
-                                ReadFrom.Input
-                            );
-                        }).Named<IReadInputKeysAndHashCodes>(entity.Key);
+                        var sqlInput = process.Connections.FirstOrDefault(c => c.Provider == SqlServer && c.Name == entity.Connection);
+
+                        if (sqlInput != null) {
+                            builder.Register(ctx => {
+                                var inputContext = ctx.ResolveNamed<InputContext>(entity.Key);
+                                var rowCapacity = inputContext.Entity.GetPrimaryKey().Count();
+                                var rowFactory = new RowFactory(rowCapacity, false, true);
+                                return new AdoReader(
+                                    inputContext,
+                                    entity.GetPrimaryKey(),
+                                    ctx.ResolveNamed<IConnectionFactory>(inputContext.Connection.Key),
+                                    rowFactory,
+                                    ReadFrom.Input
+                                );
+                            }).Named<IReadInputKeysAndHashCodes>(entity.Key);
+                        }
 
                         // register output keys and hash code reader if necessary
                         builder.Register(ctx => {
