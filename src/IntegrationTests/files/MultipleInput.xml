@@ -1,0 +1,61 @@
+﻿<add name="MultipleInput" mode="@[Mode]">
+
+  <!-- multiple input feature probably not really needed and would make system more complicated, so this is just left-over stuff -->
+  <parameters>
+    <add name="Mode" value="default" />
+  </parameters>
+
+  <connections>
+    <add name="Dale" provider="sqlserver" database="Test1" />
+    <add name="Daryl" provider="sqlserver" database="Test2" />
+    <add name="output" provider="sqlserver" database="Junk" />
+  </connections>
+
+  <entities>
+
+    <add name="Answer" version="UpdatedOn" ignore-duplicate-key="true" >
+      <fields>
+        <add name="Id" alias="AnswerId" type="int" primary-key="true" />
+        <add name="QuestionId" type="int" />
+        <add name="Answer" length="4000" />
+        <add name="UpdatedBy" alias="AnswerUpdatedBy" />
+        <add name="UpdatedOn" alias="AnswerUpdatedOn" type="datetime" />
+      </fields>
+      <calculated-fields>
+        <add name="AnswerUpdatedTimeAgo" t="copy(UpdatedOn).timeago()" />
+      </calculated-fields>
+    </add>
+
+    <add name="Question" version="UpdatedOn" ignore-duplicate-key="true">
+      <fields>
+        <add name="Id" alias="QuestionId" type="int" primary-key="true" />
+        <add name="CategoryId" type="int" />
+        <add name="Question" length="2000" />
+        <add name="UpdatedBy" alias="QuestionUpdatedBy" />
+        <add name="UpdatedOn" alias="QuestionUpdatedOn" type="datetime" />
+      </fields>
+      <calculated-fields>
+        <add name="QuestionUpdatedTimeAgo" t="copy(UpdatedOn).timeago()" />
+      </calculated-fields>
+    </add>
+
+    <add name="Category" ignore-duplicate-key="true">
+      <fields>
+        <add name="Id" alias="CategoryId" type="int" primary-key="true"/>
+        <add name="Name" alias="Category" />
+      </fields>
+    </add>
+  </entities>
+
+  <relationships>
+    <add left-entity="Answer" left-field="QuestionId" right-entity="Question" right-field="QuestionId" />
+    <add left-entity="Question" left-field="CategoryId" right-entity="Category" right-field="CategoryId" />
+  </relationships>
+
+  <calculated-fields>
+    <add name="Summary"
+         length="4000"
+         t='copy(QuestionUpdatedBy,Question,AnswerUpdatedBy,Answer).format({QuestionUpdatedBy} asked "{Question}," and {AnswerUpdatedBy} answered "{Answer}")' />
+  </calculated-fields>
+
+</add>

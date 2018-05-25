@@ -60,18 +60,14 @@ namespace Transformalize.Providers.SqlServer.Autofac {
 
                 // INPUT READER
                 builder.Register<IRead>(ctx => {
-
                     var input = ctx.ResolveNamed<InputContext>(entity.Key);
                     var rowFactory = ctx.ResolveNamed<IRowFactory>(entity.Key, new NamedParameter("capacity", input.RowCapacity));
-                    var dataReader = new AdoInputReader(
+                    return new AdoInputReader(
                         input,
                         input.InputFields,
                         ctx.ResolveNamed<IConnectionFactory>(input.Connection.Key),
                         rowFactory
                     );
-
-                    return dataReader;
-
                 }).Named<IRead>(entity.Key);
 
                 // INPUT VERSION DETECTOR
