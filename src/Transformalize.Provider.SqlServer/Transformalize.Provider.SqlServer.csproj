@@ -46,9 +46,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Transformalize\Compatibility\Transformalize.452\bin\Debug\Transformalize.dll</HintPath>
     </Reference>
-    <Reference Include="Transformalize.Provider.Ado, Version=0.3.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Transformalize\Providers\Ado\bin\Debug\Transformalize.Provider.Ado.dll</HintPath>
+    <Reference Include="Transformalize.Provider.Ado, Version=0.3.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Transformalize.Provider.Ado.0.3.8-beta\lib\net452\Transformalize.Provider.Ado.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

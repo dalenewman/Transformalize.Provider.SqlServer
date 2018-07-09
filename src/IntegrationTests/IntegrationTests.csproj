@@ -79,12 +79,10 @@
       <HintPath>..\..\..\Transformalize\Compatibility\Transformalize.452\bin\Debug\Transformalize.dll</HintPath>
     </Reference>
     <Reference Include="Transformalize.Container.Autofac, Version=0.3.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Transformalize.Container.Autofac\src\Transformalize.Container.Autofac\bin\Debug\Transformalize.Container.Autofac.dll</HintPath>
+      <HintPath>..\..\packages\Transformalize.Container.Autofac.0.3.7-beta\lib\net452\Transformalize.Container.Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Transformalize.Provider.Ado, Version=0.3.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Transformalize\Providers\Ado\bin\Debug\Transformalize.Provider.Ado.dll</HintPath>
+    <Reference Include="Transformalize.Provider.Ado, Version=0.3.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Transformalize.Provider.Ado.0.3.8-beta\lib\net452\Transformalize.Provider.Ado.dll</HintPath>
     </Reference>
     <Reference Include="Transformalize.Provider.Bogus, Version=0.3.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Transformalize.Provider.Bogus.0.3.4-beta\lib\net452\Transformalize.Provider.Bogus.dll</HintPath>
@@ -106,7 +104,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MultipleInput.cs" />
     <Compile Include="NorthWindIntegrationSqlServer.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -130,15 +127,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="files\CreateDatabase2.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="files\CreateDatabase1.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="files\MultipleInput.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="files\NorthWind.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
