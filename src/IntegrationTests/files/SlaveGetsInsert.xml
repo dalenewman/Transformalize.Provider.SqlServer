@@ -1,0 +1,28 @@
+﻿<cfg name='Test' mode='@[Mode]' flatten='true'>
+  <parameters>
+    <add name='Mode' value='default' />
+  </parameters>
+  <connections>
+    <add name='input' provider='sqlserver' database='NorthWind' />
+    <add name='output' provider='sqlserver' database='TflNorthWind' />
+  </connections>
+  <entities>
+    <add name='MasterTable'>
+      <fields>
+        <add name='Id' type='int' primary-key='true' />
+        <add name='d1' />
+        <add name='d2' />
+      </fields>
+    </add>
+    <add name='SlaveTable'>
+      <fields>
+        <add name='Id' type='int' primary-key='true' />
+        <add name='d3' />
+        <add name='d4' />
+      </fields>
+    </add>
+  </entities>
+  <relationships>
+    <add left-entity='MasterTable' left-field='Id' right-entity='SlaveTable' right-field='Id' />
+  </relationships>
+</cfg>
