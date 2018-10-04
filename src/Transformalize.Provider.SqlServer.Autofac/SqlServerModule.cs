@@ -30,16 +30,27 @@ using Transformalize.Transforms.System;
 
 namespace Transformalize.Providers.SqlServer.Autofac {
     public class SqlServerModule : Module {
+        private readonly Process _process;
 
         private const string SqlServer = "sqlserver";
 
+        public SqlServerModule()
+        {
+
+        }
+
+        public SqlServerModule(Process process)
+        {
+            _process = process;
+        }
+
         protected override void Load(ContainerBuilder builder) {
 
-            if (!builder.Properties.ContainsKey("Process")) {
+            if (_process == null && !builder.Properties.ContainsKey("Process")) {
                 return;
             }
 
-            var process = (Process)builder.Properties["Process"];
+            var process = _process ?? (Process)builder.Properties["Process"];
 
             // connections
             foreach (var connection in process.Connections.Where(c => c.Provider == SqlServer)) {
