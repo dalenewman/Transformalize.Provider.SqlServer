@@ -74,10 +74,18 @@ namespace Transformalize.Providers.SqlServer {
             using (var cn = new SqlConnection(_cf.GetConnectionString())) {
                 cn.Open();
 
-                SqlDataAdapter adapter;
                 var dt = new DataTable();
-                using (adapter = new SqlDataAdapter(_output.SqlSelectOutputSchema(_cf), cn)) {
-                    adapter.Fill(dt);
+
+                try {
+                    SqlDataAdapter adapter;
+                    using (adapter = new SqlDataAdapter(_output.SqlSelectOutputSchema(_cf), cn)) {
+                        adapter.Fill(dt);
+                    }
+                } catch (System.Data.Common.DbException e) {
+                    _output.Error($"Error reading schema from {_output.Connection.Name}, {_output.Entity.Alias}.");
+                    _output.Error(e.Message);
+                    _output.Debug(() => e.StackTrace);
+                    return;
                 }
 
                 var bulkCopy = new SqlBulkCopy(cn, _bulkCopyOptions, null) {
