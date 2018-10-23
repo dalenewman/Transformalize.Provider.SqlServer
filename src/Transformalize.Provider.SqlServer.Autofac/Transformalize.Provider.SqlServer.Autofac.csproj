@@ -88,6 +88,7 @@
     <PostBuildEvent>set f="$(SolutionDir)..\Transformalize\Pipeline.Command\plugins"
 
 if exist %25f%25 copy /Y "$(TargetDir)Dapper.dll" "%25f%25"
+if exist %25f%25 copy /Y "$(TargetDir)Transformalize.Container.Autofac.dll" "%25f%25"
 if exist %25f%25 copy /Y "$(TargetDir)Transformalize.Provider.SqlServer.dll" "%25f%25"
 if exist %25f%25 copy /Y "$(TargetDir)Transformalize.Provider.SqlServer.Autofac.dll" "%25f%25"
 </PostBuildEvent>
