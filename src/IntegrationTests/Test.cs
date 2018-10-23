@@ -102,5 +102,48 @@ namespace IntegrationTests {
                 }
             }
         }
+
+        [TestMethod]
+        public void ReadWithExpression() {
+            const string xml = @"<add name='Bogus'>
+  <parameters>
+     <add name='Id' value='2' />
+  </parameters>
+  <connections>
+    <add name='input' provider='sqlserver' database='Junk' />
+    <add name='output' provider='internal' />
+  </connections>
+  <entities>
+    <add name='BogusStar' alias='Contact'>
+      <order>
+        <add field='Identity' />
+      </order>
+      <filter>
+         <add expression='[Identity] = @Id' />
+      </filter>
+      <fields>
+        <add name='Identity' type='int' />
+        <add name='FirstName' />
+        <add name='LastName' />
+        <add name='Stars' type='byte' />
+        <add name='Reviewers' type='int' />
+      </fields>
+    </add>
+  </entities>
+</add>";
+            using (var outer = new ConfigurationContainer().CreateScope(xml)) {
+                using (var inner = new TestContainer(new SqlServerModule()).CreateScope(outer, new ConsoleLogger(LogLevel.Debug))) {
+
+                    var process = inner.Resolve<Process>();
+
+                    var controller = inner.Resolve<IProcessController>();
+                    controller.Execute();
+                    var rows = process.Entities.First().Rows;
+
+                    Assert.AreEqual(1, rows.Count);
+
+                }
+            }
+        }
     }
 }
