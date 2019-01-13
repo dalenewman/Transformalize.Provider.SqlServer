@@ -141,6 +141,7 @@ namespace Transformalize.Providers.SqlServer {
                 if (_output.Entity.Updates > 0) {
                     _output.Info("{0} updates to {1}", _output.Entity.Updates, _output.Connection.Name);
                 }
+
             }
 
         }

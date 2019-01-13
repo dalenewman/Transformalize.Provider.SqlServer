@@ -22,6 +22,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Transformalize.Configuration;
 using Transformalize.Containers.Autofac;
 using Transformalize.Contracts;
+using Transformalize.Providers.Ado.Autofac;
 using Transformalize.Providers.Bogus.Autofac;
 using Transformalize.Providers.Console;
 using Transformalize.Providers.SqlServer.Autofac;
@@ -141,6 +142,58 @@ namespace IntegrationTests {
                     var rows = process.Entities.First().Rows;
 
                     Assert.AreEqual(1, rows.Count);
+
+                }
+            }
+        }
+
+        [TestMethod]
+        public void CorrelatedSubQuery() {
+            const string xml = @"<add name='Test'>
+  <connections>
+    <add name='input' provider='internal' />
+    <add name='northwind' provider='sqlserver' server='localhost' database='NorthWind' />
+    <add name='output' provider='internal' />
+  </connections>
+  <entities>
+    <add name='Test'>
+      <rows>
+        <add CustomerID='OCEAN' />
+        <add CustomerID='PARIS' />
+      </rows>
+      <fields>
+        <add name='CustomerID' length='5' />
+      </fields>
+      <calculated-fields>
+        <add name='x' output='false'>
+            <transforms>
+                <add method='fromquery'
+                     connection='northwind'
+                     query='SELECT City, Country FROM Customers WHERE CustomerID = @CustomerID'>
+                    <fields>
+                        <add name='City' />
+                        <add name='Country' />
+                    </fields>
+                </add>
+            </transforms>
+        </add>
+      </calculated-fields>
+
+    </add>
+  </entities>
+</add>";
+            using (var outer = new ConfigurationContainer().CreateScope(xml)) {
+                using (var inner = new TestContainer(new AdoModule(), new SqlServerModule()).CreateScope(outer, new ConsoleLogger(LogLevel.Debug))) {
+
+                    var process = inner.Resolve<Process>();
+
+                    var controller = inner.Resolve<IProcessController>();
+                    controller.Execute();
+                    var rows = process.Entities.First().Rows;
+
+                    Assert.AreEqual(2, rows.Count);
+                    Assert.AreEqual("Buenos Aires", rows[0]["City"]);
+                    Assert.AreEqual("France", rows[1]["Country"]);
 
                 }
             }
