@@ -82,16 +82,18 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Transformalize, Version=0.3.15.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Transformalize.0.3.15-beta\lib\net462\Transformalize.dll</HintPath>
+    <Reference Include="Transformalize, Version=0.3.18.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Transformalize.0.3.19-beta\lib\net462\Transformalize.dll</HintPath>
     </Reference>
     <Reference Include="Transformalize.Container.Autofac, Version=0.3.12.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Transformalize.Container.Autofac.0.3.12-beta\lib\net462\Transformalize.Container.Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Transformalize.Provider.Ado, Version=0.3.14.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Transformalize.Provider.Ado.0.3.14-beta\lib\net462\Transformalize.Provider.Ado.dll</HintPath>
+    <Reference Include="Transformalize.Provider.Ado, Version=0.3.16.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Transformalize.Transform.Ado.0.3.16-beta\lib\net462\Transformalize.Transform.Ado.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Transformalize.Provider.Ado.Autofac">
+    <Reference Include="Transformalize.Provider.Ado.Autofac, Version=0.3.15.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Transformalize.Provider.Ado\src\Transformalize.Provider.Ado.Autofac\bin\Debug\Transformalize.Provider.Ado.Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Transformalize.Provider.Bogus, Version=0.3.4.0, Culture=neutral, processorArchitecture=MSIL">
@@ -102,6 +104,12 @@
     </Reference>
     <Reference Include="Transformalize.Provider.Console, Version=0.3.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Transformalize.Provider.Console.0.3.1-beta\lib\net452\Transformalize.Provider.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="Transformalize.Transform.Ado, Version=0.3.16.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Transformalize.Transform.Ado.0.3.18-beta\lib\net462\Transformalize.Transform.Ado.dll</HintPath>
+    </Reference>
+    <Reference Include="Transformalize.Transform.Ado.Autofac, Version=0.3.16.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Transformalize.Transform.Ado.Autofac.0.3.18-beta\lib\net462\Transformalize.Transform.Ado.Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Transformalize.Transform.CSharp, Version=0.3.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Transformalize.Transform.CSharp.0.3.6-beta\lib\net452\Transformalize.Transform.CSharp.dll</HintPath>

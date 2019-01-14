@@ -16,16 +16,18 @@
 // limitations under the License.
 #endregion
 
-using System.Linq;
 using Autofac;
+using Dapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 using Transformalize.Configuration;
 using Transformalize.Containers.Autofac;
 using Transformalize.Contracts;
-using Transformalize.Providers.Ado.Autofac;
+using Transformalize.Providers.Ado;
 using Transformalize.Providers.Bogus.Autofac;
 using Transformalize.Providers.Console;
 using Transformalize.Providers.SqlServer.Autofac;
+using Transformalize.Transforms.Ado.Autofac;
 
 namespace IntegrationTests {
 
@@ -183,7 +185,7 @@ namespace IntegrationTests {
   </entities>
 </add>";
             using (var outer = new ConfigurationContainer().CreateScope(xml)) {
-                using (var inner = new TestContainer(new AdoModule(), new SqlServerModule()).CreateScope(outer, new ConsoleLogger(LogLevel.Debug))) {
+                using (var inner = new TestContainer(new AdoTransformModule(), new SqlServerModule()).CreateScope(outer, new ConsoleLogger(LogLevel.Debug))) {
 
                     var process = inner.Resolve<Process>();
 
@@ -195,6 +197,61 @@ namespace IntegrationTests {
                     Assert.AreEqual("Buenos Aires", rows[0]["City"]);
                     Assert.AreEqual("France", rows[1]["Country"]);
 
+                }
+            }
+        }
+
+        [TestMethod]
+        public void CorrelatedSubCommand() {
+
+            /* -- test table
+             * create table TestTable(
+	TestTableId INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+	TestColumn1 NVARCHAR(10) NOT NULL,
+	TestColumn2 INT NOT NULL
+); */
+
+            const string xml = @"<add name='Test'>
+  <connections>
+    <add name='input' provider='internal' />
+    <add name='junk' provider='sqlserver' server='localhost' database='Junk' />
+    <add name='output' provider='internal' />
+  </connections>
+  <entities>
+    <add name='Test'>
+      <rows>
+        <add TestColumn1='OCEAN' TestColumn2='3' />
+        <add TestColumn1='PARIS' TestColumn2='4' />
+      </rows>
+      <fields>
+        <add name='TestColumn1' length='10' t='lower()' />
+        <add name='TestColumn2' type='int' />
+      </fields>
+      <calculated-fields>
+        <add name='x' output='false' length='128' connection='junk' t='run(INSERT INTO TestTable(TestColumn1,TestColumn2) VALUES (@TestColumn1,@TestColumn2);)' />
+      </calculated-fields>
+    </add>
+  </entities>
+</add>";
+            using (var outer = new ConfigurationContainer(new AdoTransformModule()).CreateScope(xml)) {
+                using (var inner = new TestContainer(new AdoTransformModule(), new SqlServerModule()).CreateScope(outer, new ConsoleLogger(LogLevel.Debug))) {
+
+                    var process = inner.Resolve<Process>();
+                    var factory = inner.ResolveNamed<IConnectionFactory>(process.Connections[1].Key);
+
+                    using (var cn = factory.GetConnection()) {
+                        cn.Open();
+                        cn.Execute("DELETE FROM TestTable;");
+                    }
+
+                    var controller = inner.Resolve<IProcessController>();
+                    controller.Execute();
+
+
+                    using (var cn = factory.GetConnection()) {
+                        cn.Open();
+                        Assert.AreEqual(2, cn.ExecuteScalar<int>("SELECT COUNT(*) FROM TestTable;"));
+                    }
                 }
             }
         }
