@@ -22,6 +22,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Transformalize.Configuration;
 using Transformalize.Containers.Autofac;
 using Transformalize.Contracts;
+using Transformalize.Providers.Ado.Autofac;
 using Transformalize.Providers.Console;
 using Transformalize.Providers.SqlServer;
 using Transformalize.Providers.SqlServer.Autofac;
@@ -30,7 +31,6 @@ using Transformalize.Transforms.CSharp.Autofac;
 namespace IntegrationTests {
 
     [TestClass]
-    [Ignore("currently under development")]
     public class NorthWindIntegrationSqlServer {
 
         public string TestFile { get; set; } = @"Files\NorthWind.xml";
@@ -63,7 +63,7 @@ namespace IntegrationTests {
 
             // RUN INIT AND TEST
             using (var outer = new ConfigurationContainer(new CSharpModule()).CreateScope(TestFile + "?Mode=init")) {
-                using (var inner = new TestContainer(new CSharpModule(), new SqlServerModule()).CreateScope(outer, new ConsoleLogger(LogLevel.Debug))) {
+                using (var inner = new TestContainer(new CSharpModule(), new AdoProviderModule(), new SqlServerModule()).CreateScope(outer, new ConsoleLogger(LogLevel.Debug))) {
                     var controller = inner.Resolve<IProcessController>();
                     controller.Execute();
                 }

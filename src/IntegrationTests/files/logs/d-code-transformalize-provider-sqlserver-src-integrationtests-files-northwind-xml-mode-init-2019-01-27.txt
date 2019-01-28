@@ -1,0 +1,32 @@
+2019-01-27 19:04:11 | warn  | NorthWind | Order Details |                           | Initializing
+2019-01-27 19:04:11 | warn  | NorthWind | Orders        |                           | Initializing
+2019-01-27 19:04:11 | warn  | NorthWind | Customers     |                           | Initializing
+2019-01-27 19:04:11 | warn  | NorthWind | Employees     |                           | Initializing
+2019-01-27 19:04:11 | warn  | NorthWind | Products      |                           | Initializing
+2019-01-27 19:04:11 | warn  | NorthWind | Suppliers     |                           | Initializing
+2019-01-27 19:04:11 | warn  | NorthWind | Categories    |                           | Initializing
+2019-01-27 19:04:11 | warn  | NorthWind | Shippers      |                           | Initializing
+2019-01-27 19:08:21 | warn  | NorthWind | Order Details |                           | Initializing
+2019-01-27 19:08:22 | warn  | NorthWind | Orders        |                           | Initializing
+2019-01-27 19:08:22 | warn  | NorthWind | Customers     |                           | Initializing
+2019-01-27 19:08:22 | warn  | NorthWind | Employees     |                           | Initializing
+2019-01-27 19:08:23 | warn  | NorthWind | Products      |                           | Initializing
+2019-01-27 19:08:23 | warn  | NorthWind | Suppliers     |                           | Initializing
+2019-01-27 19:08:23 | warn  | NorthWind | Categories    |                           | Initializing
+2019-01-27 19:08:24 | warn  | NorthWind | Shippers      |                           | Initializing
+2019-01-27 19:08:53 | warn  | NorthWind | Order Details |                           | Initializing
+2019-01-27 19:08:53 | warn  | NorthWind | Orders        |                           | Initializing
+2019-01-27 19:08:53 | warn  | NorthWind | Customers     |                           | Initializing
+2019-01-27 19:08:53 | warn  | NorthWind | Employees     |                           | Initializing
+2019-01-27 19:08:53 | warn  | NorthWind | Products      |                           | Initializing
+2019-01-27 19:08:53 | warn  | NorthWind | Suppliers     |                           | Initializing
+2019-01-27 19:08:53 | warn  | NorthWind | Categories    |                           | Initializing
+2019-01-27 19:08:53 | warn  | NorthWind | Shippers      |                           | Initializing
+2019-01-27 19:12:55 | warn  | NorthWind | Order Details |                           | Initializing
+2019-01-27 19:12:56 | warn  | NorthWind | Orders        |                           | Initializing
+2019-01-27 19:12:56 | warn  | NorthWind | Customers     |                           | Initializing
+2019-01-27 19:12:56 | warn  | NorthWind | Employees     |                           | Initializing
+2019-01-27 19:12:57 | warn  | NorthWind | Products      |                           | Initializing
+2019-01-27 19:12:57 | warn  | NorthWind | Suppliers     |                           | Initializing
+2019-01-27 19:12:58 | warn  | NorthWind | Categories    |                           | Initializing
+2019-01-27 19:12:58 | warn  | NorthWind | Shippers      |                           | Initializing

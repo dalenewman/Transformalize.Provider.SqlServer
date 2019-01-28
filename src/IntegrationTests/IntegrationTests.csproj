@@ -88,13 +88,11 @@
     <Reference Include="Transformalize.Container.Autofac, Version=0.3.12.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Transformalize.Container.Autofac.0.3.12-beta\lib\net462\Transformalize.Container.Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Transformalize.Provider.Ado, Version=0.3.16.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Transformalize.Transform.Ado.0.3.16-beta\lib\net462\Transformalize.Transform.Ado.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Transformalize.Provider.Ado, Version=0.3.19.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Transformalize.Provider.Ado.0.3.19-beta\lib\net462\Transformalize.Provider.Ado.dll</HintPath>
     </Reference>
-    <Reference Include="Transformalize.Provider.Ado.Autofac, Version=0.3.15.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Transformalize.Provider.Ado\src\Transformalize.Provider.Ado.Autofac\bin\Debug\Transformalize.Provider.Ado.Autofac.dll</HintPath>
+    <Reference Include="Transformalize.Provider.Ado.Autofac, Version=0.3.19.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Transformalize.Provider.Ado.Autofac.0.3.19-beta\lib\net462\Transformalize.Provider.Ado.Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Transformalize.Provider.Bogus, Version=0.3.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Transformalize.Provider.Bogus.0.3.5-beta\lib\net452\Transformalize.Provider.Bogus.dll</HintPath>

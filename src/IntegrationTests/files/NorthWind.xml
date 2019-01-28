@@ -122,13 +122,13 @@
       </calculated-fields>
     </add>
 
-    <add name="EmployeeTerritories" version="RowVersion" prefix="EmployeeTerritories">
+    <!--<add name="EmployeeTerritories" version="RowVersion" prefix="EmployeeTerritories">
       <fields>
         <add name="EmployeeID" type="int" primary-key="true" />
         <add name="TerritoryID" length="20" primary-key="true" />
         <add name="RowVersion" type="byte[]" length="8" ></add>
       </fields>
-    </add>
+    </add>-->
 
     <add name="Products"
          version="RowVersion"
@@ -199,7 +199,7 @@
     <add left-entity="Orders" left-field="ShipVia" right-entity="Shippers" right-field="ShipperID" />
 
     <add left-entity="Orders" left-field="EmployeeID" right-entity="Employees" right-field="EmployeeID" />
-    <add left-entity="Employees" left-field="EmployeeID" right-entity="EmployeeTerritories" right-field="EmployeeID" />
+    <!--<add left-entity="Employees" left-field="EmployeeID" right-entity="EmployeeTerritories" right-field="EmployeeID" />-->
 
     <add left-entity="Order Details" left-field="ProductID" right-entity="Products" right-field="ProductID" />  
     <add left-entity="Products" left-field="SupplierID" right-entity="Suppliers" right-field="SupplierID" />

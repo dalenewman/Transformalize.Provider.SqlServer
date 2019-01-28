@@ -24,6 +24,7 @@ using Transformalize.Configuration;
 using Transformalize.Containers.Autofac;
 using Transformalize.Contracts;
 using Transformalize.Providers.Ado;
+using Transformalize.Providers.Ado.Autofac;
 using Transformalize.Providers.Bogus.Autofac;
 using Transformalize.Providers.Console;
 using Transformalize.Providers.SqlServer.Autofac;
@@ -57,7 +58,7 @@ namespace IntegrationTests {
   </entities>
 </add>";
             using (var outer = new ConfigurationContainer().CreateScope(xml)) {
-                using (var inner = new TestContainer(new BogusModule(), new SqlServerModule()).CreateScope(outer, new ConsoleLogger(LogLevel.Debug))) {
+                using (var inner = new TestContainer(new BogusModule(), new AdoProviderModule(), new SqlServerModule()).CreateScope(outer, new ConsoleLogger(LogLevel.Debug))) {
 
                     var process = inner.Resolve<Process>();
 
