@@ -16,10 +16,10 @@
 // limitations under the License.
 #endregion
 
-using System.Linq;
 using Autofac;
 using Dapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 using Transformalize.Configuration;
 using Transformalize.Containers.Autofac;
 using Transformalize.Contracts;
@@ -29,30 +29,30 @@ using Transformalize.Providers.SqlServer.Autofac;
 
 namespace IntegrationTests {
 
-    [TestClass]
-    public class DeleteIntegration {
+   [TestClass]
+   public class DeleteIntegration {
 
-        public Connection InputConnection { get; set; } = new Connection {
-            Name = "input",
-            Provider = "sqlserver",
-            ConnectionString = "server=localhost;database=NorthWind;trusted_connection=true;"
-        };
+      public Connection InputConnection { get; set; } = new Connection {
+         Name = "input",
+         Provider = "sqlserver",
+         ConnectionString = "server=localhost;database=NorthWind;trusted_connection=true;"
+      };
 
-        public Connection OutputConnection { get; set; } = new Connection {
-            Name = "output",
-            Provider = "sqlserver",
-            ConnectionString = "Server=localhost;Database=TflNorthwind;trusted_connection=true;"
-        };
+      public Connection OutputConnection { get; set; } = new Connection {
+         Name = "output",
+         Provider = "sqlserver",
+         ConnectionString = "Server=localhost;Database=TflNorthwind;trusted_connection=true;"
+      };
 
-        [TestMethod]
-        public void Delete_Integration() {
+      [TestMethod]
+      public void Delete_Integration() {
 
-            const string cfg = @"files\DeleteIntegration.xml";
+         const string cfg = @"files\DeleteIntegration.xml";
 
-            // INITIALIZE INPUT
-            using (var cn = new SqlServerConnectionFactory(InputConnection).GetConnection()) {
-                cn.Open();
-                Assert.AreEqual(3, cn.Execute(@"
+         // INITIALIZE INPUT
+         using (var cn = new SqlServerConnectionFactory(InputConnection).GetConnection()) {
+            cn.Open();
+            Assert.AreEqual(3, cn.Execute(@"
                         IF OBJECT_ID('TestDeletes') IS NOT NULL
     	                    DROP TABLE [TestDeletes];
 
@@ -68,113 +68,118 @@ namespace IntegrationTests {
                         INSERT INTO [TestDeletes]([TextValue],[Id],[NumericValue]) VALUES('Two',2,2);
                         INSERT INTO [TestDeletes]([TextValue],[Id],[NumericValue]) VALUES('Three',3,3);
     "));
+         }
+
+         // RUN INIT AND TEST
+         using (var outer = new ConfigurationContainer().CreateScope(cfg + "?Mode=init")) {
+            var process = outer.Resolve<Process>();
+            using (var inner = new TestContainer(new SqlServerModule()).CreateScope(process, new ConsoleLogger(LogLevel.Debug))) {
+
+               var controller = inner.Resolve<IProcessController>();
+               controller.Execute();
+               Assert.AreEqual((uint)3, process.Entities.First().Inserts);
+               Assert.AreEqual((uint)0, process.Entities.First().Updates);
+               Assert.AreEqual((uint)0, process.Entities.First().Deletes);
             }
+         }
 
-            // RUN INIT AND TEST
-            using (var outer = new ConfigurationContainer().CreateScope(cfg + "?Mode=init")) {
-                using (var inner = new TestContainer(new SqlServerModule()).CreateScope(outer, new ConsoleLogger(LogLevel.Debug))) {
-                    var process = inner.Resolve<Process>();
-                    var controller = inner.Resolve<IProcessController>();
-                    controller.Execute();
-                    Assert.AreEqual((uint)3, process.Entities.First().Inserts);
-                    Assert.AreEqual((uint)0, process.Entities.First().Updates);
-                    Assert.AreEqual((uint)0, process.Entities.First().Deletes);
-                }
+         using (var cn = new SqlServerConnectionFactory(OutputConnection).GetConnection()) {
+            cn.Open();
+            Assert.AreEqual(3, cn.ExecuteScalar<int>("SELECT COUNT(*) FROM TestDeletesStar;"));
+         }
+
+         // FIRST DELTA, NO CHANGES
+         using (var outer = new ConfigurationContainer().CreateScope(cfg)) {
+            var process = outer.Resolve<Process>();
+            using (var inner = new TestContainer(new SqlServerModule()).CreateScope(process, new ConsoleLogger(LogLevel.Debug))) {
+
+               var controller = inner.Resolve<IProcessController>();
+               controller.Execute();
+               Assert.AreEqual((uint)0, process.Entities.First().Inserts);
+               Assert.AreEqual((uint)0, process.Entities.First().Updates);
+               Assert.AreEqual((uint)0, process.Entities.First().Deletes);
             }
+         }
 
-            using (var cn = new SqlServerConnectionFactory(OutputConnection).GetConnection()) {
-                cn.Open();
-                Assert.AreEqual(3, cn.ExecuteScalar<int>("SELECT COUNT(*) FROM TestDeletesStar;"));
+         using (var cn = new SqlServerConnectionFactory(OutputConnection).GetConnection()) {
+            cn.Open();
+            Assert.AreEqual(3, cn.ExecuteScalar<int>("SELECT COUNT(*) FROM TestDeletesStar;"));
+         }
+
+         // DELETE Row 2, Two
+         using (var cn = new SqlServerConnectionFactory(InputConnection).GetConnection()) {
+            cn.Open();
+            const string sql = @"DELETE FROM [TestDeletes] WHERE [Id] = 2 AND [NumericValue] = 2;";
+            Assert.AreEqual(1, cn.Execute(sql));
+         }
+
+         // RUN AND CHECK, SHOULD STILL HAVE 3 RECORDS, but one marked TflDeleted = 1
+         using (var outer = new ConfigurationContainer().CreateScope(cfg)) {
+            var process = outer.Resolve<Process>();
+            using (var inner = new TestContainer(new SqlServerModule()).CreateScope(process, new ConsoleLogger(LogLevel.Debug))) {
+               
+               var controller = inner.Resolve<IProcessController>();
+               controller.Execute();
+               Assert.AreEqual((uint)0, process.Entities.First().Inserts);
+               Assert.AreEqual((uint)0, process.Entities.First().Updates);
+               Assert.AreEqual((uint)1, process.Entities.First().Deletes);
             }
+         }
 
-            // FIRST DELTA, NO CHANGES
-            using (var outer = new ConfigurationContainer().CreateScope(cfg)) {
-                using (var inner = new TestContainer(new SqlServerModule()).CreateScope(outer, new ConsoleLogger(LogLevel.Debug))) {
-                    var process = inner.Resolve<Process>();
-                    var controller = inner.Resolve<IProcessController>();
-                    controller.Execute();
-                    Assert.AreEqual((uint)0, process.Entities.First().Inserts);
-                    Assert.AreEqual((uint)0, process.Entities.First().Updates);
-                    Assert.AreEqual((uint)0, process.Entities.First().Deletes);
-                }
+         using (var cn = new SqlServerConnectionFactory(OutputConnection).GetConnection()) {
+            cn.Open();
+            Assert.AreEqual(3, cn.ExecuteScalar<int>("SELECT COUNT(*) FROM TestDeletesStar;"));
+            Assert.AreEqual(1, cn.ExecuteScalar<decimal>("SELECT COUNT(*) FROM TestDeletesStar WHERE TflDeleted = 1;"));
+         }
+
+         // RUN AGAIN
+         using (var outer = new ConfigurationContainer().CreateScope(cfg)) {
+            var process = outer.Resolve<Process>();
+            using (var inner = new TestContainer(new SqlServerModule()).CreateScope(process, new ConsoleLogger(LogLevel.Debug))) {
+               
+               var controller = inner.Resolve<IProcessController>();
+               controller.Execute();
+               Assert.AreEqual((uint)0, process.Entities.First().Inserts);
+               Assert.AreEqual((uint)0, process.Entities.First().Updates);
+               Assert.AreEqual((uint)0, process.Entities.First().Deletes);
             }
+         }
 
-            using (var cn = new SqlServerConnectionFactory(OutputConnection).GetConnection()) {
-                cn.Open();
-                Assert.AreEqual(3, cn.ExecuteScalar<int>("SELECT COUNT(*) FROM TestDeletesStar;"));
+         using (var cn = new SqlServerConnectionFactory(OutputConnection).GetConnection()) {
+            cn.Open();
+            Assert.AreEqual(3, cn.ExecuteScalar<int>("SELECT COUNT(*) FROM TestDeletesStar;"));
+            Assert.AreEqual(1, cn.ExecuteScalar<decimal>("SELECT COUNT(*) FROM TestDeletesStar WHERE TflDeleted = 1;"));
+         }
+
+         // UN-DELETE Row 2, Two
+         using (var cn = new SqlServerConnectionFactory(InputConnection).GetConnection()) {
+            cn.Open();
+            const string sql = @"INSERT INTO [TestDeletes]([TextValue],[Id],[NumericValue]) VALUES('Two',2,2);";
+            Assert.AreEqual(1, cn.Execute(sql));
+         }
+
+         // RUN AND CHECK
+         using (var outer = new ConfigurationContainer().CreateScope(cfg)) {
+            var process = outer.Resolve<Process>();
+            using (var inner = new TestContainer(new SqlServerModule()).CreateScope(process, new ConsoleLogger(LogLevel.Debug))) {
+               
+               var controller = inner.Resolve<IProcessController>();
+               controller.Execute();
+               Assert.AreEqual((uint)0, process.Entities.First().Inserts);
+               Assert.AreEqual((uint)1, process.Entities.First().Updates);
+               Assert.AreEqual((uint)0, process.Entities.First().Deletes);
             }
+         }
 
-            // DELETE Row 2, Two
-            using (var cn = new SqlServerConnectionFactory(InputConnection).GetConnection()) {
-                cn.Open();
-                const string sql = @"DELETE FROM [TestDeletes] WHERE [Id] = 2 AND [NumericValue] = 2;";
-                Assert.AreEqual(1, cn.Execute(sql));
-            }
-
-            // RUN AND CHECK, SHOULD STILL HAVE 3 RECORDS, but one marked TflDeleted = 1
-            using (var outer = new ConfigurationContainer().CreateScope(cfg)) {
-                using (var inner = new TestContainer(new SqlServerModule()).CreateScope(outer, new ConsoleLogger(LogLevel.Debug))) {
-                    var process = inner.Resolve<Process>();
-                    var controller = inner.Resolve<IProcessController>();
-                    controller.Execute();
-                    Assert.AreEqual((uint)0, process.Entities.First().Inserts);
-                    Assert.AreEqual((uint)0, process.Entities.First().Updates);
-                    Assert.AreEqual((uint)1, process.Entities.First().Deletes);
-                }
-            }
-
-            using (var cn = new SqlServerConnectionFactory(OutputConnection).GetConnection()) {
-                cn.Open();
-                Assert.AreEqual(3, cn.ExecuteScalar<int>("SELECT COUNT(*) FROM TestDeletesStar;"));
-                Assert.AreEqual(1, cn.ExecuteScalar<decimal>("SELECT COUNT(*) FROM TestDeletesStar WHERE TflDeleted = 1;"));
-            }
-
-            // RUN AGAIN
-            using (var outer = new ConfigurationContainer().CreateScope(cfg)) {
-                using (var inner = new TestContainer(new SqlServerModule()).CreateScope(outer, new ConsoleLogger(LogLevel.Debug))) {
-                    var process = inner.Resolve<Process>();
-                    var controller = inner.Resolve<IProcessController>();
-                    controller.Execute();
-                    Assert.AreEqual((uint)0, process.Entities.First().Inserts);
-                    Assert.AreEqual((uint)0, process.Entities.First().Updates);
-                    Assert.AreEqual((uint)0, process.Entities.First().Deletes);
-                }
-            }
-
-            using (var cn = new SqlServerConnectionFactory(OutputConnection).GetConnection()) {
-                cn.Open();
-                Assert.AreEqual(3, cn.ExecuteScalar<int>("SELECT COUNT(*) FROM TestDeletesStar;"));
-                Assert.AreEqual(1, cn.ExecuteScalar<decimal>("SELECT COUNT(*) FROM TestDeletesStar WHERE TflDeleted = 1;"));
-            }
-
-            // UN-DELETE Row 2, Two
-            using (var cn = new SqlServerConnectionFactory(InputConnection).GetConnection()) {
-                cn.Open();
-                const string sql = @"INSERT INTO [TestDeletes]([TextValue],[Id],[NumericValue]) VALUES('Two',2,2);";
-                Assert.AreEqual(1, cn.Execute(sql));
-            }
-
-            // RUN AND CHECK
-            using (var outer = new ConfigurationContainer().CreateScope(cfg)) {
-                using (var inner = new TestContainer(new SqlServerModule()).CreateScope(outer, new ConsoleLogger(LogLevel.Debug))) {
-                    var process = inner.Resolve<Process>();
-                    var controller = inner.Resolve<IProcessController>();
-                    controller.Execute();
-                    Assert.AreEqual((uint)0, process.Entities.First().Inserts);
-                    Assert.AreEqual((uint)1, process.Entities.First().Updates);
-                    Assert.AreEqual((uint)0, process.Entities.First().Deletes);
-                }
-            }
-
-            using (var cn = new SqlServerConnectionFactory(OutputConnection).GetConnection()) {
-                cn.Open();
-                Assert.AreEqual(3, cn.ExecuteScalar<int>("SELECT COUNT(*) FROM TestDeletesStar WHERE TflDeleted = 0;"));
-            }
+         using (var cn = new SqlServerConnectionFactory(OutputConnection).GetConnection()) {
+            cn.Open();
+            Assert.AreEqual(3, cn.ExecuteScalar<int>("SELECT COUNT(*) FROM TestDeletesStar WHERE TflDeleted = 0;"));
+         }
 
 
-        }
+      }
 
 
-    }
+   }
 }
 

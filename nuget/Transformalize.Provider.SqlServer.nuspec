@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Transformalize.Provider.SqlServer</id>
-    <version>0.3.24-beta</version>
+    <version>0.4.0-beta</version>
     <title>Transformalize Transform using SqlServer</title>
     <authors>Dale Newman</authors>
     <owners>Dale Newman</owners>
@@ -10,11 +10,11 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Transformalize Transform using SqlServer</description>
     <releaseNotes>updated ado and transformalize dependencies</releaseNotes>
-    <copyright>Copyright 2013-2018</copyright>
+    <copyright>Copyright 2013-2019</copyright>
     <tags>etl</tags>
     <dependencies>
       <group targetFramework="net462">
-        <dependency id="Transformalize.Provider.Ado" version="0.3.24-beta" />
+        <dependency id="Transformalize.Provider.Ado" version="0.4.5-beta" />
       </group>
     </dependencies>
   </metadata>

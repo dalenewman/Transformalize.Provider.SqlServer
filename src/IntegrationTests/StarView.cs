@@ -30,41 +30,17 @@ using Transformalize.Providers.SqlServer.Autofac;
 
 namespace IntegrationTests {
 
-    [TestClass]
-    public class StarView {
-        private const string Expected = @"CREATE VIEW [NorthWindStar]
+   [TestClass]
+   public class StarView {
+      private const string Expected = @"CREATE VIEW [NorthWindStar]
 AS
 SELECT A.[A1] AS [TflKey]
 	,A.[A2] AS [TflBatchId]
 	,A.[A3] AS [TflHashCode]
 	,A.[A4] AS [TflDeleted]
-	,A.[A5] AS [OrderDetailsDiscount]
-	,A.[A6] AS [OrderDetailsOrderID]
-	,A.[A7] AS [OrderDetailsProductID]
-	,A.[A8] AS [OrderDetailsQuantity]
-	,A.[A9] AS [OrderDetailsRowVersion]
-	,A.[A10] AS [OrderDetailsUnitPrice]
-	,A.[A11] AS [OrderDetailsExtendedPrice]
+	,COALESCE(G.[G6], '') AS [CategoriesCategoryName]
+	,COALESCE(G.[G7], '') AS [CategoriesDescription]
 	,A.[A20] AS [CountryExchange]
-	,A.[A21] AS [Test]
-	,A.[B5] AS [OrdersCustomerID]
-	,A.[B6] AS [OrdersEmployeeID]
-	,A.[E12] AS [ProductsSupplierID]
-	,A.[E5] AS [ProductsCategoryID]
-	,A.[B19] AS [OrdersShipVia]
-	,COALESCE(B.[B7], 0.0) AS [OrdersFreight]
-	,COALESCE(B.[B8], '9999-12-31T00:00:00Z') AS [OrdersOrderDate]
-	,COALESCE(B.[B10], '9999-12-31T00:00:00Z') AS [OrdersRequiredDate]
-	,COALESCE(B.[B12], '') AS [OrdersShipAddress]
-	,COALESCE(B.[B13], '') AS [OrdersShipCity]
-	,COALESCE(B.[B14], '') AS [OrdersShipCountry]
-	,COALESCE(B.[B15], '') AS [OrdersShipName]
-	,COALESCE(B.[B16], '9999-12-31T00:00:00Z') AS [OrdersShippedDate]
-	,COALESCE(B.[B17], '') AS [OrdersShipPostalCode]
-	,COALESCE(B.[B18], '') AS [OrdersShipRegion]
-	,COALESCE(B.[B20], '12-DEC') AS [TimeOrderMonth]
-	,COALESCE(B.[B21], '9999-12-31') AS [TimeOrderDate]
-	,COALESCE(B.[B22], '9999') AS [TimeOrderYear]
 	,COALESCE(C.[C5], '') AS [CustomersAddress]
 	,COALESCE(C.[C6], '') AS [CustomersCity]
 	,COALESCE(C.[C7], '') AS [CustomersCompanyName]
@@ -75,6 +51,7 @@ SELECT A.[A1] AS [TflKey]
 	,COALESCE(C.[C13], '') AS [CustomersPhone]
 	,COALESCE(C.[C14], '') AS [CustomersPostalCode]
 	,COALESCE(C.[C15], '') AS [CustomersRegion]
+	,COALESCE(D.[D25], '') AS [Employee]
 	,COALESCE(D.[D5], '') AS [EmployeesAddress]
 	,COALESCE(D.[D6], '9999-12-31T00:00:00Z') AS [EmployeesBirthDate]
 	,COALESCE(D.[D7], '') AS [EmployeesCity]
@@ -84,21 +61,44 @@ SELECT A.[A1] AS [TflKey]
 	,COALESCE(D.[D12], '9999-12-31T00:00:00Z') AS [EmployeesHireDate]
 	,COALESCE(D.[D13], '') AS [EmployeesHomePhone]
 	,COALESCE(D.[D14], '') AS [EmployeesLastName]
+	,COALESCE(D.[D24], '') AS [EmployeesManager]
 	,COALESCE(D.[D15], '') AS [EmployeesNotes]
 	,COALESCE(D.[D18], '') AS [EmployeesPostalCode]
 	,COALESCE(D.[D19], '') AS [EmployeesRegion]
+	,COALESCE(D.[D23], 0) AS [EmployeesReportsTo]
 	,COALESCE(D.[D21], '') AS [EmployeesTitle]
 	,COALESCE(D.[D22], '') AS [EmployeesTitleOfCourtesy]
-	,COALESCE(D.[D23], 0) AS [EmployeesReportsTo]
-	,COALESCE(D.[D24], '') AS [EmployeesManager]
-	,COALESCE(D.[D25], '') AS [Employee]
+	,A.[A5] AS [OrderDetailsDiscount]
+	,A.[A11] AS [OrderDetailsExtendedPrice]
+	,A.[A6] AS [OrderDetailsOrderID]
+	,A.[A7] AS [OrderDetailsProductID]
+	,A.[A8] AS [OrderDetailsQuantity]
+	,A.[A9] AS [OrderDetailsRowVersion]
+	,A.[A10] AS [OrderDetailsUnitPrice]
+	,A.[B5] AS [OrdersCustomerID]
+	,A.[B6] AS [OrdersEmployeeID]
+	,COALESCE(B.[B7], 0.0) AS [OrdersFreight]
+	,COALESCE(B.[B8], '9999-12-31T00:00:00Z') AS [OrdersOrderDate]
+	,COALESCE(B.[B10], '9999-12-31T00:00:00Z') AS [OrdersRequiredDate]
+	,COALESCE(B.[B12], '') AS [OrdersShipAddress]
+	,COALESCE(B.[B13], '') AS [OrdersShipCity]
+	,COALESCE(B.[B14], '') AS [OrdersShipCountry]
+	,COALESCE(B.[B15], '') AS [OrdersShipName]
+	,COALESCE(B.[B16], '9999-12-31T00:00:00Z') AS [OrdersShippedDate]
+	,COALESCE(B.[B17], '') AS [OrdersShipPostalCode]
+	,COALESCE(B.[B18], '') AS [OrdersShipRegion]
+	,A.[B19] AS [OrdersShipVia]
+	,A.[E5] AS [ProductsCategoryID]
 	,COALESCE(E.[E6], 0) AS [ProductsDiscontinued]
 	,COALESCE(E.[E8], '') AS [ProductsProductName]
 	,COALESCE(E.[E9], '') AS [ProductsQuantityPerUnit]
 	,COALESCE(E.[E10], 0) AS [ProductsReorderLevel]
+	,A.[E12] AS [ProductsSupplierID]
 	,COALESCE(E.[E13], 0.0) AS [ProductsUnitPrice]
 	,COALESCE(E.[E14], 0) AS [ProductsUnitsInStock]
 	,COALESCE(E.[E15], 0) AS [ProductsUnitsOnOrder]
+	,COALESCE(H.[H5], '') AS [ShippersCompanyName]
+	,COALESCE(H.[H6], '') AS [ShippersPhone]
 	,COALESCE(F.[F5], '') AS [SuppliersAddress]
 	,COALESCE(F.[F6], '') AS [SuppliersCity]
 	,COALESCE(F.[F7], '') AS [SuppliersCompanyName]
@@ -110,10 +110,10 @@ SELECT A.[A1] AS [TflKey]
 	,COALESCE(F.[F13], '') AS [SuppliersPhone]
 	,COALESCE(F.[F14], '') AS [SuppliersPostalCode]
 	,COALESCE(F.[F15], '') AS [SuppliersRegion]
-	,COALESCE(G.[G6], '') AS [CategoriesCategoryName]
-	,COALESCE(G.[G7], '') AS [CategoriesDescription]
-	,COALESCE(H.[H5], '') AS [ShippersCompanyName]
-	,COALESCE(H.[H6], '') AS [ShippersPhone]
+	,A.[A21] AS [Test]
+	,COALESCE(B.[B21], '9999-12-31') AS [TimeOrderDate]
+	,COALESCE(B.[B20], '12-DEC') AS [TimeOrderMonth]
+	,COALESCE(B.[B22], '9999') AS [TimeOrderYear]
 FROM [NorthWindOrder DetailsTable] A
 LEFT OUTER JOIN [NorthWindOrdersTable] B ON (A.[A6] = B.[B9])
 LEFT OUTER JOIN [NorthWindCustomersTable] C ON (A.[B5] = C.[C11])
@@ -124,20 +124,17 @@ LEFT OUTER JOIN [NorthWindCategoriesTable] G ON (A.[E5] = G.[G5])
 LEFT OUTER JOIN [NorthWindShippersTable] H ON (A.[B19] = H.[H8]);
 ";
 
-        [TestMethod]
-        public void StarSql() {
-            using (var outer = new ConfigurationContainer().CreateScope(@"Files\NorthWind.xml")) {
-                using (var inner = new TestContainer(new SqlServerModule()).CreateScope(outer, new ConsoleLogger(LogLevel.Debug))) {
-                    var process = inner.Resolve<Process>();
-                    var pipe = new PipelineContext(new ConsoleLogger(), process);
-                    var actual = new SqlFormattingManager().Format(pipe.SqlCreateStarView(new SqlServerConnectionFactory(new Connection())));
-                    Assert.AreEqual(Expected, actual);
-                }
+      [TestMethod]
+      public void StarSql() {
+         using (var outer = new ConfigurationContainer().CreateScope(@"Files\NorthWind.xml")) {
+            var process = outer.Resolve<Process>();
+            using (var inner = new TestContainer(new SqlServerModule()).CreateScope(process, new ConsoleLogger(LogLevel.Debug))) {
+
+               var pipe = new PipelineContext(new ConsoleLogger(), process);
+               var actual = new SqlFormattingManager().Format(pipe.SqlCreateStarView(new SqlServerConnectionFactory(new Connection())));
+               Assert.AreEqual(Expected, actual);
             }
-
-
-        }
-    }
-
-
+         }
+      }
+   }
 }
