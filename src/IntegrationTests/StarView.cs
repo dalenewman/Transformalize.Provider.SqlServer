@@ -126,9 +126,10 @@ LEFT OUTER JOIN [NorthWindShippersTable] H ON (A.[B19] = H.[H8]);
 
       [TestMethod]
       public void StarSql() {
-         using (var outer = new ConfigurationContainer().CreateScope(@"Files\NorthWind.xml")) {
+         var logger = new ConsoleLogger(LogLevel.Debug);
+         using (var outer = new ConfigurationContainer().CreateScope(@"Files\NorthWind.xml", logger)) {
             var process = outer.Resolve<Process>();
-            using (var inner = new TestContainer(new SqlServerModule()).CreateScope(process, new ConsoleLogger(LogLevel.Debug))) {
+            using (var inner = new Container(new SqlServerModule()).CreateScope(process, logger)) {
 
                var pipe = new PipelineContext(new ConsoleLogger(), process);
                var actual = new SqlFormattingManager().Format(pipe.SqlCreateStarView(new SqlServerConnectionFactory(new Connection())));

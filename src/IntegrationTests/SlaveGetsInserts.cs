@@ -111,10 +111,12 @@ INSERT INTO SlaveTable(Id,d3,d4)VALUES(1,'d5','d6');
                 "));
          }
 
+         var logger = new ConsoleLogger(LogLevel.Debug);
+
          // RUN INIT AND TEST
-         using (var outer = new ConfigurationContainer().CreateScope(@"Files\SlaveGetsInsert.xml?Mode=init")) {
+         using (var outer = new ConfigurationContainer().CreateScope(@"Files\SlaveGetsInsert.xml?Mode=init", logger)) {
             var process = outer.Resolve<Process>();
-            using (var inner = new TestContainer(new SqlServerModule()).CreateScope(process, new ConsoleLogger(LogLevel.Debug))) {
+            using (var inner = new TestContainer(new SqlServerModule()).CreateScope(process, logger)) {
 
                var controller = inner.Resolve<IProcessController>();
                controller.Execute();
@@ -130,9 +132,9 @@ INSERT INTO SlaveTable(Id,d3,d4)VALUES(1,'d5','d6');
          }
 
          // FIRST DELTA, NO CHANGES
-         using (var outer = new ConfigurationContainer().CreateScope(@"Files\SlaveGetsInsert.xml")) {
+         using (var outer = new ConfigurationContainer().CreateScope(@"Files\SlaveGetsInsert.xml", logger)) {
             var process = outer.Resolve<Process>();
-            using (var inner = new TestContainer(new SqlServerModule()).CreateScope(process, new ConsoleLogger(LogLevel.Debug))) {
+            using (var inner = new TestContainer(new SqlServerModule()).CreateScope(process, logger)) {
 
                var controller = inner.Resolve<IProcessController>();
                controller.Execute();
@@ -156,9 +158,9 @@ INSERT INTO SlaveTable(Id,d3,d4)VALUES(1,'d5','d6');
          }
 
          // RUN AND CHECK
-         using (var outer = new ConfigurationContainer().CreateScope(@"Files\SlaveGetsInsert.xml")) {
+         using (var outer = new ConfigurationContainer().CreateScope(@"Files\SlaveGetsInsert.xml", logger)) {
             var process = outer.Resolve<Process>();
-            using (var inner = new TestContainer(new SqlServerModule()).CreateScope(process, new ConsoleLogger(LogLevel.Debug))) {
+            using (var inner = new TestContainer(new SqlServerModule()).CreateScope(process, logger)) {
                var controller = inner.Resolve<IProcessController>();
                controller.Execute();
                Assert.AreEqual((uint)0, process.Entities.First().Inserts);

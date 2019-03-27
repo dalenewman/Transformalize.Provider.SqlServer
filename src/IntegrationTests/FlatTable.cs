@@ -120,9 +120,10 @@ namespace IntegrationTests {
 
       [TestMethod]
       public void FlatSql() {
-         using (var outer = new ConfigurationContainer(new CSharpModule()).CreateScope(@"Files\Northwind.xml")) {
+         var logger = new ConsoleLogger(LogLevel.Debug);
+         using (var outer = new ConfigurationContainer(new CSharpModule()).CreateScope(@"Files\Northwind.xml", logger)) {
             var process = outer.Resolve<Process>();
-            using (var inner = new TestContainer(new CSharpModule(), new SqlServerModule()).CreateScope(process, new ConsoleLogger(LogLevel.Debug))) {
+            using (var inner = new TestContainer(new CSharpModule(), new SqlServerModule()).CreateScope(process, logger)) {
                var pipe = new PipelineContext(new ConsoleLogger(), process);
                var actual = new SqlFormattingManager().Format(pipe.SqlCreateFlatTable(new SqlServerConnectionFactory(new Connection())));
                Assert.AreEqual(Expected, actual);
