@@ -75,7 +75,7 @@ namespace IntegrationTests {
          // RUN INIT AND TEST
          using (var outer = new ConfigurationContainer().CreateScope(cfg + "?Mode=init", logger)) {
             var process = outer.Resolve<Process>();
-            using (var inner = new TestContainer(new SqlServerModule()).CreateScope(process, logger)) {
+            using (var inner = new Container(new SqlServerModule()).CreateScope(process, logger)) {
 
                var controller = inner.Resolve<IProcessController>();
                controller.Execute();
@@ -93,7 +93,7 @@ namespace IntegrationTests {
          // FIRST DELTA, NO CHANGES
          using (var outer = new ConfigurationContainer().CreateScope(cfg, logger)) {
             var process = outer.Resolve<Process>();
-            using (var inner = new TestContainer(new SqlServerModule()).CreateScope(process, logger)) {
+            using (var inner = new Container(new SqlServerModule()).CreateScope(process, logger)) {
 
                var controller = inner.Resolve<IProcessController>();
                controller.Execute();
@@ -118,7 +118,7 @@ namespace IntegrationTests {
          // RUN AND CHECK, SHOULD STILL HAVE 3 RECORDS, but one marked TflDeleted = 1
          using (var outer = new ConfigurationContainer().CreateScope(cfg, logger)) {
             var process = outer.Resolve<Process>();
-            using (var inner = new TestContainer(new SqlServerModule()).CreateScope(process, logger)) {
+            using (var inner = new Container(new SqlServerModule()).CreateScope(process, logger)) {
 
                var controller = inner.Resolve<IProcessController>();
                controller.Execute();
@@ -137,7 +137,7 @@ namespace IntegrationTests {
          // RUN AGAIN
          using (var outer = new ConfigurationContainer().CreateScope(cfg, logger)) {
             var process = outer.Resolve<Process>();
-            using (var inner = new TestContainer(new SqlServerModule()).CreateScope(process, logger)) {
+            using (var inner = new Container(new SqlServerModule()).CreateScope(process, logger)) {
 
                var controller = inner.Resolve<IProcessController>();
                controller.Execute();
@@ -163,7 +163,7 @@ namespace IntegrationTests {
          // RUN AND CHECK
          using (var outer = new ConfigurationContainer().CreateScope(cfg, logger)) {
             var process = outer.Resolve<Process>();
-            using (var inner = new TestContainer(new SqlServerModule()).CreateScope(process, logger)) {
+            using (var inner = new Container(new SqlServerModule()).CreateScope(process, logger)) {
 
                var controller = inner.Resolve<IProcessController>();
                controller.Execute();
