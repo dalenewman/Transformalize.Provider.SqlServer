@@ -139,7 +139,7 @@ namespace IntegrationTests {
          var logger = new ConsoleLogger(LogLevel.Debug);
          using (var outer = new ConfigurationContainer().CreateScope(xml, logger)) {
             var process = outer.Resolve<Process>();
-            using (var inner = new TestContainer(new SqlServerModule()).CreateScope(process, logger)) {
+            using (var inner = new Container(new SqlServerModule()).CreateScope(process, logger)) {
 
                var controller = inner.Resolve<IProcessController>();
                controller.Execute();
@@ -190,7 +190,7 @@ namespace IntegrationTests {
          using (var outer = new ConfigurationContainer().CreateScope(xml, logger)) {
             var process = outer.Resolve<Process>();
 
-            using (var inner = new TestContainer(new AdoTransformModule(), new SqlServerModule()).CreateScope(process, logger)) {
+            using (var inner = new Container(new AdoTransformModule(), new SqlServerModule()).CreateScope(process, logger)) {
 
                var controller = inner.Resolve<IProcessController>();
                controller.Execute();
@@ -239,7 +239,7 @@ TestColumn2 INT NOT NULL
          var logger = new ConsoleLogger(LogLevel.Debug);
          using (var outer = new ConfigurationContainer(new AdoTransformModule()).CreateScope(xml, logger)) {
             var process = outer.Resolve<Process>();
-            using (var inner = new TestContainer(new AdoTransformModule(), new SqlServerModule()).CreateScope(process, logger)) {
+            using (var inner = new Container(new AdoTransformModule(), new SqlServerModule()).CreateScope(process, logger)) {
 
                var factory = inner.ResolveNamed<IConnectionFactory>(process.Connections[1].Key);
 
