@@ -56,22 +56,9 @@
       </fields>
 
       <calculated-fields>
-        <add name="TimeOrderMonth" length="6" default="12-DEC">
-          <transforms>
-            <add method="tostring" format="MM-MMM" parameter="OrderDate" />
-            <add method="toUpper" />
-          </transforms>
-        </add>
-        <add name="TimeOrderDate" length="10" default="9999-12-31">
-          <transforms>
-            <add method="tostring" format="yyyy-MM-dd" parameter="OrderDate" />
-          </transforms>
-        </add>
-        <add name="TimeOrderYear" length="4" default="9999">
-          <transforms>
-            <add method="tostring" format="yyyy" parameter="OrderDate" />
-          </transforms>
-        </add>
+        <add name="TimeOrderMonth" length="6" default="12-DEC" t="copy(OrderDate).toString(MM-MMM).toUpper()" />
+        <add name="TimeOrderDate" length="10" default="9999-12-31" t="copy(OrderDate).toString(yyyy-MM-dd)" />
+        <add name="TimeOrderYear" length="4" default="9999" t="copy(OrderDate).toString(yyyy)" />
       </calculated-fields>
     </add>
 

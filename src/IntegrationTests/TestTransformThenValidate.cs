@@ -32,7 +32,7 @@ namespace IntegrationTests {
             <add name='Field1' t='replace(\,,)' v='is(int)' valid-field='Valid' message-field='Message' />
          </fields>
          <calculated-fields>
-            <add name='Valid' type='bool' />
+            <add name='Valid' type='bool' default='true' />
             <add name='Message' length='255' />
          </calculated-fields>
       </add>
