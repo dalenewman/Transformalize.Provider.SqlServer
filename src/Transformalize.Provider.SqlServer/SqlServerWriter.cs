@@ -177,6 +177,8 @@ namespace Transformalize.Providers.SqlServer {
             _output.Entity.Inserts += Convert.ToUInt32(enumerated.Length);
          } catch (Exception ex) {
             _output.Error(ex.Message);
+         } finally {
+            dt.Clear();
          }
       }
 
