@@ -168,7 +168,7 @@ namespace Transformalize.Providers.SqlServer.Autofac {
                builder.Register<IWriteMasterUpdateQuery>(ctx => {
                   var output = ctx.ResolveNamed<OutputContext>(entity.Key);
                   var factory = ctx.ResolveNamed<IConnectionFactory>(output.Connection.Key);
-                  return new SqlServerUpdateMasterKeysQueryWriter(output, factory);
+                  return new AdoUpdateMasterKeysQueryWriter(output, factory);
                }).Named<IWriteMasterUpdateQuery>(entity.Key + "MasterKeys");
 
                // MASTER UPDATER

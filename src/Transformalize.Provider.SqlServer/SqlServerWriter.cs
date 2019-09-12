@@ -99,50 +99,49 @@ namespace Transformalize.Providers.SqlServer {
                return;
             }
 
-            var bulkCopy = new SqlBulkCopy(cn, _bulkCopyOptions, null) {
+            using (var bulkCopy = new SqlBulkCopy(cn, _bulkCopyOptions, null) {
                BatchSize = _output.Entity.InsertSize,
                BulkCopyTimeout = 0,
                DestinationTableName = "[" + _output.Entity.OutputTableName(_output.Process.Name) + "]"
-            };
+            }) {
 
-            for (var i = 0; i < _output.OutputFields.Length; i++) {
-               bulkCopy.ColumnMappings.Add(i, i);
-            }
-
-            foreach (var part in rows.Partition(_output.Entity.InsertSize)) {
-
-               var batch = part.ToArray();
-
-               if (_output.Process.Mode == "init" || (_output.Entity.Insert && !_output.Entity.Update)) {
-                  var inserts = new List<IRow>();
-                  inserts.AddRange(batch);
-                  Insert(bulkCopy, dt, inserts);
-               } else {
-                  var inserts = new List<IRow>();
-                  var updates = new List<IRow>();
-                  var tflHashCode = _output.Entity.TflHashCode();
-                  var tflDeleted = _output.Entity.TflDeleted();
-                  var matching = _outputKeysReader.Read(batch);
-
-                  for (int i = 0, batchLength = batch.Length; i < batchLength; i++) {
-                     var row = batch[i];
-                     if (matching.Contains(i)) {
-                        if (matching[i][tflDeleted].Equals(true) || !matching[i][tflHashCode].Equals(row[tflHashCode])) {
-                           updates.Add(row);
-                        }
-                     } else {
-                        inserts.Add(row);
-                     }
-                  }
-
-                  Insert(bulkCopy, dt, inserts);
-
-                  if (updates.Any()) {
-                     _sqlUpdater.Write(updates);
-                  }
-
+               for (var i = 0; i < _output.OutputFields.Length; i++) {
+                  bulkCopy.ColumnMappings.Add(i, i);
                }
 
+               foreach (var part in rows.Partition(_output.Entity.InsertSize)) {
+
+                  var batch = part.ToArray();
+
+                  if (_output.Process.Mode == "init" || (_output.Entity.Insert && !_output.Entity.Update)) {
+                     var inserts = new List<IRow>();
+                     inserts.AddRange(batch);
+                     Insert(bulkCopy, dt, inserts);
+                  } else {
+                     var inserts = new List<IRow>();
+                     var updates = new List<IRow>();
+                     var tflHashCode = _output.Entity.TflHashCode();
+                     var tflDeleted = _output.Entity.TflDeleted();
+                     var matching = _outputKeysReader.Read(batch);
+
+                     for (int i = 0, batchLength = batch.Length; i < batchLength; i++) {
+                        var row = batch[i];
+                        if (matching.Contains(i)) {
+                           if (matching[i][tflDeleted].Equals(true) || !matching[i][tflHashCode].Equals(row[tflHashCode])) {
+                              updates.Add(row);
+                           }
+                        } else {
+                           inserts.Add(row);
+                        }
+                     }
+
+                     Insert(bulkCopy, dt, inserts);
+
+                     if (updates.Any()) {
+                        _sqlUpdater.Write(updates);
+                     }
+                  }
+               }
             }
 
             if (_output.Entity.Inserts > 0) {

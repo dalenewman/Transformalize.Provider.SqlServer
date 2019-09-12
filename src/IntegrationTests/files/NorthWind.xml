@@ -1,4 +1,4 @@
-﻿<add name="NorthWind" mode="@[Mode]">
+﻿<add name="NorthWind" mode="@[Mode]" flatten="true">
 
   <parameters>
     <add name="Mode" value="default" />
