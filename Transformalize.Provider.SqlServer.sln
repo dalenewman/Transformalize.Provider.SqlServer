@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2036
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C4563C88-9C80-4BD0-949E-AA64F111957E}"
 	ProjectSection(SolutionItems) = preProject
@@ -27,7 +27,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cfg", "cfg", "{B0BC2A9C-961
 		cfg\read-me-write.xml = cfg\read-me-write.xml
 	EndProjectSection
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Transformalize.Provider.SqlServer.Shared", "src\Transformalize.Provider.SqlServer.Shared\Transformalize.Provider.SqlServer.Shared.shproj", "{AD5DD0AC-5A11-4938-8D05-FDF4B2DB0E11}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Transformalize.Provider.SqlServer.Autofac.Shared", "src\Transformalize.Provider.SqlServer.Autofac.Shared\Transformalize.Provider.SqlServer.Autofac.Shared.shproj", "{80B3338F-6DCE-4EED-9ED3-BA671C1E25F2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transformalize.Provider.SqlServer.Standard.20", "src\Transformalize.Provider.SqlServer.Standard.20\Transformalize.Provider.SqlServer.Standard.20.csproj", "{618E65F4-629E-4349-9677-715FD1F6FFBC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Provider", "Provider", "{F29983BC-EA56-4AAA-B126-445DE7E3448C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Provider.Autofac", "Provider.Autofac", "{95911DE3-3BB5-4E80-B810-F585D670682F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transformalize.Provider.SqlServer.Autofac.Standard.20", "src\Transformalize.Provider.SqlServer.Autofac.Standard.20\Transformalize.Provider.SqlServer.Autofac.Standard.20.csproj", "{A6C1332C-480C-436F-8A2D-5E728B3B0F38}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\Transformalize.Provider.SqlServer.Shared\Transformalize.Provider.SqlServer.Shared.projitems*{4ed1e259-756a-40b8-9800-f563b59e0206}*SharedItemsImports = 4
+		src\Transformalize.Provider.SqlServer.Shared\Transformalize.Provider.SqlServer.Shared.projitems*{618e65f4-629e-4349-9677-715fd1f6ffbc}*SharedItemsImports = 5
+		src\Transformalize.Provider.SqlServer.Autofac.Shared\Transformalize.Provider.SqlServer.Autofac.Shared.projitems*{80b3338f-6dce-4eed-9ed3-ba671c1e25f2}*SharedItemsImports = 13
+		src\Transformalize.Provider.SqlServer.Autofac.Shared\Transformalize.Provider.SqlServer.Autofac.Shared.projitems*{a6c1332c-480c-436f-8a2d-5e728b3b0f38}*SharedItemsImports = 5
+		src\Transformalize.Provider.SqlServer.Shared\Transformalize.Provider.SqlServer.Shared.projitems*{ad5dd0ac-5a11-4938-8d05-fdf4b2db0e11}*SharedItemsImports = 13
+		src\Transformalize.Provider.SqlServer.Autofac.Shared\Transformalize.Provider.SqlServer.Autofac.Shared.projitems*{cd3477b9-14e5-4ea3-90b0-ca9299bcae73}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -45,13 +65,27 @@ Global
 		{058FAE31-0608-48F8-84E4-04C3398689C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{058FAE31-0608-48F8-84E4-04C3398689C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{058FAE31-0608-48F8-84E4-04C3398689C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{618E65F4-629E-4349-9677-715FD1F6FFBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{618E65F4-629E-4349-9677-715FD1F6FFBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{618E65F4-629E-4349-9677-715FD1F6FFBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{618E65F4-629E-4349-9677-715FD1F6FFBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6C1332C-480C-436F-8A2D-5E728B3B0F38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6C1332C-480C-436F-8A2D-5E728B3B0F38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6C1332C-480C-436F-8A2D-5E728B3B0F38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6C1332C-480C-436F-8A2D-5E728B3B0F38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8FE1844F-26A4-47BE-9507-F0333D42FABE} = {C4563C88-9C80-4BD0-949E-AA64F111957E}
+		{4ED1E259-756A-40B8-9800-F563B59E0206} = {F29983BC-EA56-4AAA-B126-445DE7E3448C}
+		{CD3477B9-14E5-4EA3-90B0-CA9299BCAE73} = {95911DE3-3BB5-4E80-B810-F585D670682F}
 		{B0BC2A9C-9618-4E64-8DC5-2B8599A13BB7} = {C4563C88-9C80-4BD0-949E-AA64F111957E}
+		{AD5DD0AC-5A11-4938-8D05-FDF4B2DB0E11} = {F29983BC-EA56-4AAA-B126-445DE7E3448C}
+		{80B3338F-6DCE-4EED-9ED3-BA671C1E25F2} = {95911DE3-3BB5-4E80-B810-F585D670682F}
+		{618E65F4-629E-4349-9677-715FD1F6FFBC} = {F29983BC-EA56-4AAA-B126-445DE7E3448C}
+		{A6C1332C-480C-436F-8A2D-5E728B3B0F38} = {95911DE3-3BB5-4E80-B810-F585D670682F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {960FC2FA-8CAD-47A3-8A4E-4173AE406E71}

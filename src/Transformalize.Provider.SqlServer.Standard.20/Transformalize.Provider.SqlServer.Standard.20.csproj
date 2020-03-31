@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Transformalize.Provider.SqlServer</RootNamespace>
+    <AssemblyName>Transformalize.Provider.SqlServer</AssemblyName>
+    <Version>0.6.28</Version>
+  </PropertyGroup>
+
+  <Import Project="..\Transformalize.Provider.SqlServer.Shared\Transformalize.Provider.SqlServer.Shared.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <PackageReference Include="Transformalize.Provider.Ado" Version="0.6.28-beta" />
+  </ItemGroup>
+
+</Project>

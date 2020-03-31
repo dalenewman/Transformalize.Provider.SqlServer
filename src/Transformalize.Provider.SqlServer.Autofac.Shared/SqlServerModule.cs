@@ -184,62 +184,75 @@ namespace Transformalize.Providers.SqlServer.Autofac {
                // DELETE HANDLER
                if (entity.Delete) {
 
-                  // register input keys and hashcode reader if necessary
-                  var sqlInput = process.Connections.FirstOrDefault(c => c.Provider == SqlServer && c.Name == entity.Connection);
+                  if (AdoCrossDatabaseEntityDeleteHandler.IsApplicable(process, entity)){
 
-                  if (sqlInput != null) {
+                     builder.Register<IEntityDeleteHandler>(ctx => {
+                        var outputContext = ctx.ResolveNamed<OutputContext>(entity.Key);
+                        var connectionFactory = ctx.ResolveNamed<IConnectionFactory>(process.Output().Key);
+                        return new AdoCrossDatabaseEntityDeleteHandler(outputContext, connectionFactory);
+                     }).Named<IEntityDeleteHandler>(entity.Key);
+
+                  } else {
+
+                     // register input keys and hashcode reader if necessary
+                     var sqlInput = process.Connections.FirstOrDefault(c => c.Provider == SqlServer && c.Name == entity.Connection);
+
+                     if (sqlInput != null) {
+                        builder.Register(ctx => {
+                           var inputContext = ctx.ResolveNamed<InputContext>(entity.Key);
+                           var rowCapacity = inputContext.Entity.GetPrimaryKey().Count();
+                           var rowFactory = new RowFactory(rowCapacity, false, true);
+                           return new AdoReader(
+                               inputContext,
+                               entity.GetPrimaryKey(),
+                               ctx.ResolveNamed<IConnectionFactory>(inputContext.Connection.Key),
+                               rowFactory,
+                               ReadFrom.Input
+                           );
+                        }).Named<IReadInputKeysAndHashCodes>(entity.Key);
+                     }
+
+                     // register output keys and hash code reader if necessary
                      builder.Register(ctx => {
-                        var inputContext = ctx.ResolveNamed<InputContext>(entity.Key);
-                        var rowCapacity = inputContext.Entity.GetPrimaryKey().Count();
+                        var context = ctx.ResolveNamed<OutputContext>(entity.Key);
+                        var rowCapacity = context.Entity.GetPrimaryKey().Length;
                         var rowFactory = new RowFactory(rowCapacity, false, true);
-                        return new AdoReader(
-                            inputContext,
-                            entity.GetPrimaryKey(),
-                            ctx.ResolveNamed<IConnectionFactory>(inputContext.Connection.Key),
-                            rowFactory,
-                            ReadFrom.Input
+
+                        var outputConnection = process.Output();
+                        var ocf = ctx.ResolveNamed<IConnectionFactory>(outputConnection.Key);
+                        return new AdoReader(context, entity.GetPrimaryKey(), ocf, rowFactory, ReadFrom.Output);
+
+                     }).Named<IReadOutputKeysAndHashCodes>(entity.Key);
+
+                     builder.Register((ctx) => {
+                        var outputConnection = process.Output();
+                        var outputContext = ctx.ResolveNamed<OutputContext>(entity.Key);
+                        var ocf = ctx.ResolveNamed<IConnectionFactory>(outputConnection.Key);
+                        return new AdoDeleter(outputContext, ocf);
+                     }).Named<IDelete>(entity.Key);
+
+                     builder.Register<IEntityDeleteHandler>(ctx => {
+                        var context = ctx.ResolveNamed<IContext>(entity.Key);
+                        var primaryKey = entity.GetPrimaryKey();
+
+                        var handler = new DefaultDeleteHandler(
+                            context,
+                            ctx.ResolveNamed<IReadInputKeysAndHashCodes>(entity.Key),
+                            ctx.ResolveNamed<IReadOutputKeysAndHashCodes>(entity.Key),
+                            ctx.ResolveNamed<IDelete>(entity.Key)
                         );
-                     }).Named<IReadInputKeysAndHashCodes>(entity.Key);
+
+                        // since the primary keys from the input may have been transformed into the output, you have to transform before comparing
+                        // feels a lot like entity pipeline on just the primary keys... may look at consolidating
+                        handler.Register(new DefaultTransform(context, entity.GetPrimaryKey().ToArray()));
+                        handler.Register(TransformFactory.GetTransforms(ctx, context, primaryKey));
+                        handler.Register(new StringTruncateTransfom(context, primaryKey));
+
+                        return handler;
+                     }).Named<IEntityDeleteHandler>(entity.Key);
+
                   }
 
-                  // register output keys and hash code reader if necessary
-                  builder.Register(ctx => {
-                     var context = ctx.ResolveNamed<OutputContext>(entity.Key);
-                     var rowCapacity = context.Entity.GetPrimaryKey().Length;
-                     var rowFactory = new RowFactory(rowCapacity, false, true);
-
-                     var outputConnection = process.Output();
-                     var ocf = ctx.ResolveNamed<IConnectionFactory>(outputConnection.Key);
-                     return new AdoReader(context, entity.GetPrimaryKey(), ocf, rowFactory, ReadFrom.Output);
-
-                  }).Named<IReadOutputKeysAndHashCodes>(entity.Key);
-
-                  builder.Register((ctx) => {
-                     var outputConnection = process.Output();
-                     var outputContext = ctx.ResolveNamed<OutputContext>(entity.Key);
-                     var ocf = ctx.ResolveNamed<IConnectionFactory>(outputConnection.Key);
-                     return new AdoDeleter(outputContext, ocf);
-                  }).Named<IDelete>(entity.Key);
-
-                  builder.Register<IEntityDeleteHandler>(ctx => {
-                     var context = ctx.ResolveNamed<IContext>(entity.Key);
-                     var primaryKey = entity.GetPrimaryKey();
-
-                     var handler = new DefaultDeleteHandler(
-                         context,
-                         ctx.ResolveNamed<IReadInputKeysAndHashCodes>(entity.Key),
-                         ctx.ResolveNamed<IReadOutputKeysAndHashCodes>(entity.Key),
-                         ctx.ResolveNamed<IDelete>(entity.Key)
-                     );
-
-                     // since the primary keys from the input may have been transformed into the output, you have to transform before comparing
-                     // feels a lot like entity pipeline on just the primary keys... may look at consolidating
-                     handler.Register(new DefaultTransform(context, entity.GetPrimaryKey().ToArray()));
-                     handler.Register(TransformFactory.GetTransforms(ctx, context, primaryKey));
-                     handler.Register(new StringTruncateTransfom(context, primaryKey));
-
-                     return handler;
-                  }).Named<IEntityDeleteHandler>(entity.Key);
                }
             }
          }
