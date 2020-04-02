@@ -20,7 +20,7 @@
     <PackageReference Include="Transformalize.Provider.Bogus.Autofac" Version="0.6.28-beta" />
     <PackageReference Include="Transformalize.Provider.Console" Version="0.6.28-beta" />
     <PackageReference Include="Transformalize.Transform.Ado.Autofac" Version="0.6.29-beta" />
-    <PackageReference Include="Transformalize.Transform.CSharp.Autofac" Version="0.6.28-beta" />
+    <PackageReference Include="Transformalize.Transform.CSharp.Autofac" Version="0.6.29-beta" />
   </ItemGroup>
 
   <ItemGroup>
