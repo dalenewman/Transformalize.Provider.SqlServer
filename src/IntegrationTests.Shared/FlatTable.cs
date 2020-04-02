@@ -18,7 +18,7 @@
 
 using Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PoorMansTSqlFormatterLib;
+using System.Text.RegularExpressions;
 using Transformalize.Configuration;
 using Transformalize.Containers.Autofac;
 using Transformalize.Context;
@@ -124,10 +124,15 @@ namespace IntegrationTests {
          using (var outer = new ConfigurationContainer(new CSharpModule()).CreateScope(@"Files\Northwind.xml", logger)) {
             var process = outer.Resolve<Process>();
             using (var inner = new Container(new CSharpModule(), new SqlServerModule()).CreateScope(process, logger)) {
-               var pipe = new PipelineContext(new ConsoleLogger(), process);
-               var actual = new SqlFormattingManager().Format(pipe.SqlCreateFlatTable(new SqlServerConnectionFactory(new Connection())));
-               Assert.AreEqual(Expected, actual);
-            }
+
+
+					var cleaner = new Regex("[\r\n ]");
+					var expected = cleaner.Replace(Expected, string.Empty);
+					var pipe = new PipelineContext(new ConsoleLogger(), process);
+					var actual = cleaner.Replace(pipe.SqlCreateFlatTable(new SqlServerConnectionFactory(new Connection())), string.Empty);
+					Assert.AreEqual(expected, actual);
+
+				}
          }
       }
    }

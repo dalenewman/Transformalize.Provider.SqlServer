@@ -18,7 +18,7 @@
 
 using Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PoorMansTSqlFormatterLib;
+using System.Text.RegularExpressions;
 using Transformalize.Configuration;
 using Transformalize.Containers.Autofac;
 using Transformalize.Context;
@@ -131,9 +131,11 @@ LEFT OUTER JOIN [NorthWindShippersTable] H ON (A.[B19] = H.[H8]);
             var process = outer.Resolve<Process>();
             using (var inner = new Container(new SqlServerModule()).CreateScope(process, logger)) {
 
-               var pipe = new PipelineContext(new ConsoleLogger(), process);
-               var actual = new SqlFormattingManager().Format(pipe.SqlCreateStarView(new SqlServerConnectionFactory(new Connection())));
-               Assert.AreEqual(Expected, actual);
+					var cleaner = new Regex("[\r\n ]");
+					var expected = cleaner.Replace(Expected, string.Empty);
+					var pipe = new PipelineContext(new ConsoleLogger(), process);
+					var actual = cleaner.Replace(pipe.SqlCreateStarView(new SqlServerConnectionFactory(new Connection())), string.Empty);
+               Assert.AreEqual(expected, actual);
             }
          }
       }

@@ -31,19 +31,26 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Transformalize.Provider.Sql
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Transformalize.Provider.SqlServer.Autofac.Shared", "src\Transformalize.Provider.SqlServer.Autofac.Shared\Transformalize.Provider.SqlServer.Autofac.Shared.shproj", "{80B3338F-6DCE-4EED-9ED3-BA671C1E25F2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transformalize.Provider.SqlServer.Standard.20", "src\Transformalize.Provider.SqlServer.Standard.20\Transformalize.Provider.SqlServer.Standard.20.csproj", "{618E65F4-629E-4349-9677-715FD1F6FFBC}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Provider", "Provider", "{F29983BC-EA56-4AAA-B126-445DE7E3448C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Provider.Autofac", "Provider.Autofac", "{95911DE3-3BB5-4E80-B810-F585D670682F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transformalize.Provider.SqlServer.Autofac.Standard.20", "src\Transformalize.Provider.SqlServer.Autofac.Standard.20\Transformalize.Provider.SqlServer.Autofac.Standard.20.csproj", "{A6C1332C-480C-436F-8A2D-5E728B3B0F38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transformalize.Provider.SqlServer.Autofac.Standard.20", "src\Transformalize.Provider.SqlServer.Autofac.Standard.20\Transformalize.Provider.SqlServer.Autofac.Standard.20.csproj", "{A6C1332C-480C-436F-8A2D-5E728B3B0F38}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "IntegrationTests.Shared", "src\IntegrationTests.Shared\IntegrationTests.Shared.shproj", "{9C03D903-B13A-4AF5-A38D-298A9E8A09CD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTests.Core", "src\IntegrationTests.Core\IntegrationTests.Core.csproj", "{58D8AC84-7297-4384-B4F5-AE995A9D5DE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transformalize.Provider.SqlServer.Standard.20", "src\Transformalize.Provider.SqlServer.Standard.20\Transformalize.Provider.SqlServer.Standard.20.csproj", "{473AC45F-A4A6-4A7C-ACAF-A731395A8E85}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\IntegrationTests.Shared\IntegrationTests.Shared.projitems*{058fae31-0608-48f8-84e4-04c3398689c1}*SharedItemsImports = 4
+		src\Transformalize.Provider.SqlServer.Shared\Transformalize.Provider.SqlServer.Shared.projitems*{473ac45f-a4a6-4a7c-acaf-a731395a8e85}*SharedItemsImports = 5
 		src\Transformalize.Provider.SqlServer.Shared\Transformalize.Provider.SqlServer.Shared.projitems*{4ed1e259-756a-40b8-9800-f563b59e0206}*SharedItemsImports = 4
-		src\Transformalize.Provider.SqlServer.Shared\Transformalize.Provider.SqlServer.Shared.projitems*{618e65f4-629e-4349-9677-715fd1f6ffbc}*SharedItemsImports = 5
+		src\IntegrationTests.Shared\IntegrationTests.Shared.projitems*{58d8ac84-7297-4384-b4f5-ae995a9d5de6}*SharedItemsImports = 5
 		src\Transformalize.Provider.SqlServer.Autofac.Shared\Transformalize.Provider.SqlServer.Autofac.Shared.projitems*{80b3338f-6dce-4eed-9ed3-ba671c1e25f2}*SharedItemsImports = 13
+		src\IntegrationTests.Shared\IntegrationTests.Shared.projitems*{9c03d903-b13a-4af5-a38d-298a9e8a09cd}*SharedItemsImports = 13
 		src\Transformalize.Provider.SqlServer.Autofac.Shared\Transformalize.Provider.SqlServer.Autofac.Shared.projitems*{a6c1332c-480c-436f-8a2d-5e728b3b0f38}*SharedItemsImports = 5
 		src\Transformalize.Provider.SqlServer.Shared\Transformalize.Provider.SqlServer.Shared.projitems*{ad5dd0ac-5a11-4938-8d05-fdf4b2db0e11}*SharedItemsImports = 13
 		src\Transformalize.Provider.SqlServer.Autofac.Shared\Transformalize.Provider.SqlServer.Autofac.Shared.projitems*{cd3477b9-14e5-4ea3-90b0-ca9299bcae73}*SharedItemsImports = 4
@@ -65,14 +72,18 @@ Global
 		{058FAE31-0608-48F8-84E4-04C3398689C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{058FAE31-0608-48F8-84E4-04C3398689C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{058FAE31-0608-48F8-84E4-04C3398689C1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{618E65F4-629E-4349-9677-715FD1F6FFBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{618E65F4-629E-4349-9677-715FD1F6FFBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{618E65F4-629E-4349-9677-715FD1F6FFBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{618E65F4-629E-4349-9677-715FD1F6FFBC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A6C1332C-480C-436F-8A2D-5E728B3B0F38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A6C1332C-480C-436F-8A2D-5E728B3B0F38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6C1332C-480C-436F-8A2D-5E728B3B0F38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6C1332C-480C-436F-8A2D-5E728B3B0F38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58D8AC84-7297-4384-B4F5-AE995A9D5DE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58D8AC84-7297-4384-B4F5-AE995A9D5DE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58D8AC84-7297-4384-B4F5-AE995A9D5DE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58D8AC84-7297-4384-B4F5-AE995A9D5DE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{473AC45F-A4A6-4A7C-ACAF-A731395A8E85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{473AC45F-A4A6-4A7C-ACAF-A731395A8E85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{473AC45F-A4A6-4A7C-ACAF-A731395A8E85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{473AC45F-A4A6-4A7C-ACAF-A731395A8E85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,8 +95,8 @@ Global
 		{B0BC2A9C-9618-4E64-8DC5-2B8599A13BB7} = {C4563C88-9C80-4BD0-949E-AA64F111957E}
 		{AD5DD0AC-5A11-4938-8D05-FDF4B2DB0E11} = {F29983BC-EA56-4AAA-B126-445DE7E3448C}
 		{80B3338F-6DCE-4EED-9ED3-BA671C1E25F2} = {95911DE3-3BB5-4E80-B810-F585D670682F}
-		{618E65F4-629E-4349-9677-715FD1F6FFBC} = {F29983BC-EA56-4AAA-B126-445DE7E3448C}
 		{A6C1332C-480C-436F-8A2D-5E728B3B0F38} = {95911DE3-3BB5-4E80-B810-F585D670682F}
+		{473AC45F-A4A6-4A7C-ACAF-A731395A8E85} = {F29983BC-EA56-4AAA-B126-445DE7E3448C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {960FC2FA-8CAD-47A3-8A4E-4173AE406E71}

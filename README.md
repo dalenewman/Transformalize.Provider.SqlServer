@@ -1,8 +1,6 @@
 ### Overview
 
-This adds an `SqlServer` provider to Transformalize.  It is a plug-in compatible with Transformalize 0.3.4-beta.
-
-Build the Autofac project and put it's output into Transformalize's *plugins* folder.
+This adds a `SqlServer` provider to Transformalize.  Build the Autofac project and put it's output into Transformalize's *plugins* folder.
 
 ### Write Usage
 

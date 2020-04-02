@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+
+    <AssemblyName>IntegrationTests</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.9.4" />
+    <PackageReference Include="Dapper" Version="1.60.6" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.1.1" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.1.1" />
+    <PackageReference Include="coverlet.collector" Version="1.2.0" />
+    <PackageReference Include="Transformalize.Container.Autofac" Version="0.6.28-beta" />
+    <PackageReference Include="Transformalize.Provider.Ado.Autofac" Version="0.6.29-beta" />
+    <PackageReference Include="Transformalize.Provider.Bogus.Autofac" Version="0.6.28-beta" />
+    <PackageReference Include="Transformalize.Provider.Console" Version="0.6.28-beta" />
+    <PackageReference Include="Transformalize.Transform.Ado.Autofac" Version="0.6.29-beta" />
+    <PackageReference Include="Transformalize.Transform.CSharp.Autofac" Version="0.6.28-beta" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Transformalize.Provider.SqlServer.Autofac.Standard.20\Transformalize.Provider.SqlServer.Autofac.Standard.20.csproj" />
+  </ItemGroup>
+
+  <Import Project="..\IntegrationTests.Shared\IntegrationTests.Shared.projitems" Label="Shared" />
+
+</Project>
