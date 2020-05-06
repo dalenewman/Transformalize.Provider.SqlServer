@@ -131,7 +131,7 @@ LEFT OUTER JOIN [NorthWindShippersTable] H ON (A.[B19] = H.[H8]);
             var process = outer.Resolve<Process>();
             using (var inner = new Container(new SqlServerModule()).CreateScope(process, logger)) {
 
-					var cleaner = new Regex("[\r\n ]");
+					var cleaner = new Regex(@"[\r\n\t ]");
 					var expected = cleaner.Replace(Expected, string.Empty);
 					var pipe = new PipelineContext(new ConsoleLogger(), process);
 					var actual = cleaner.Replace(pipe.SqlCreateStarView(new SqlServerConnectionFactory(new Connection())), string.Empty);

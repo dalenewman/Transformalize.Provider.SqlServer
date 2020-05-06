@@ -24,12 +24,12 @@ using Transformalize.Configuration;
 using Transformalize.Providers.Ado;
 
 namespace Transformalize.Providers.SqlServer {
-    public class SqlServerConnectionFactory : IConnectionFactory {
+   public class SqlServerConnectionFactory : IConnectionFactory {
 
-        static Dictionary<string, string> _types;
-        readonly Connection _c;
+      static Dictionary<string, string> _types;
+      readonly Connection _c;
 
-        static Dictionary<string, string> Types => _types ?? (_types = new Dictionary<string, string> {
+      static Dictionary<string, string> Types => _types ?? (_types = new Dictionary<string, string> {
             {"int64", "BIGINT"},
             {"int", "INT"},
             {"long", "BIGINT"},
@@ -54,61 +54,63 @@ namespace Transformalize.Providers.SqlServer {
             {"xml", "XML"}
         });
 
-        public AdoProvider AdoProvider { get; } = AdoProvider.SqlServer;
-        public string Terminator { get; } = ";";
+      public AdoProvider AdoProvider { get; } = AdoProvider.SqlServer;
+      public string Terminator { get; } = ";";
 
-        public SqlServerConnectionFactory(Connection connection) {
-            _c = connection;
-        }
+      public SqlServerConnectionFactory(Connection connection) {
+         _c = connection;
+      }
 
-        public IDbConnection GetConnection(string appName = null) {
-            return new SqlConnection(GetConnectionString(appName));
-        }
+      public IDbConnection GetConnection(string appName = null) {
+         return new SqlConnection(GetConnectionString(appName));
+      }
 
-        static char L { get; } = '[';
-        static char R { get; } = ']';
+      static char L { get; } = '[';
+      static char R { get; } = ']';
 
-        public string Enclose(string name) {
-            return L + name + R;
-        }
+      public bool SupportsLimit => false;
 
-        public string SqlDataType(Field f) {
+      public string Enclose(string name) {
+         return L + name + R;
+      }
 
-            var length = (new[] { "string", "char", "binary", "byte[]", "rowversion", "varbinary" }).Any(t => t == f.Type) ? string.Concat("(", f.Length, ")") : string.Empty;
-            var dimensions = (new[] { "decimal" }).Any(s => s.Equals(f.Type)) ?
-                $"({f.Precision},{f.Scale})" :
-                string.Empty;
+      public string SqlDataType(Field f) {
 
-            var sqlDataType = Types[f.Type];
+         var length = (new[] { "string", "char", "binary", "byte[]", "rowversion", "varbinary" }).Any(t => t == f.Type) ? string.Concat("(", f.Length, ")") : string.Empty;
+         var dimensions = (new[] { "decimal" }).Any(s => s.Equals(f.Type)) ?
+             $"({f.Precision},{f.Scale})" :
+             string.Empty;
 
-            if (!f.Unicode && sqlDataType.StartsWith("N", StringComparison.Ordinal)) {
-                sqlDataType = sqlDataType.TrimStart("N".ToCharArray());
-            }
+         var sqlDataType = Types[f.Type];
 
-            if (!f.VariableLength && (sqlDataType.EndsWith("VARCHAR", StringComparison.Ordinal) || sqlDataType == "VARBINARY")) {
-                sqlDataType = sqlDataType.Replace("VAR", string.Empty);
-            }
+         if (!f.Unicode && sqlDataType.StartsWith("N", StringComparison.Ordinal)) {
+            sqlDataType = sqlDataType.TrimStart("N".ToCharArray());
+         }
 
-            return string.Concat(sqlDataType, length, dimensions);
-        }
+         if (!f.VariableLength && (sqlDataType.EndsWith("VARCHAR", StringComparison.Ordinal) || sqlDataType == "VARBINARY")) {
+            sqlDataType = sqlDataType.Replace("VAR", string.Empty);
+         }
 
-        public string GetConnectionString(string appName = null) {
-            if (!string.IsNullOrEmpty(_c.ConnectionString)) {
-                return _c.ConnectionString;
-            }
+         return string.Concat(sqlDataType, length, dimensions);
+      }
 
-            _c.ConnectionString = (new SqlConnectionStringBuilder {
-                ApplicationName = appName ?? Constants.ApplicationName,
-                ConnectTimeout = _c.RequestTimeout,
-                DataSource = _c.Server,
-                InitialCatalog = _c.Database,
-                IntegratedSecurity = _c.User == string.Empty,
-                UserID = _c.User,
-                Password = _c.Password
-            }).ConnectionString;
-
+      public string GetConnectionString(string appName = null) {
+         if (!string.IsNullOrEmpty(_c.ConnectionString)) {
             return _c.ConnectionString;
-        }
+         }
 
-    }
+         _c.ConnectionString = (new SqlConnectionStringBuilder {
+            ApplicationName = appName ?? Constants.ApplicationName,
+            ConnectTimeout = _c.RequestTimeout,
+            DataSource = _c.Server,
+            InitialCatalog = _c.Database,
+            IntegratedSecurity = _c.User == string.Empty,
+            UserID = _c.User,
+            Password = _c.Password
+         }).ConnectionString;
+
+         return _c.ConnectionString;
+      }
+
+   }
 }

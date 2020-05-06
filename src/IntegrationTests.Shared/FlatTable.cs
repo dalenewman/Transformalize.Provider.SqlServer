@@ -126,11 +126,11 @@ namespace IntegrationTests {
             using (var inner = new Container(new CSharpModule(), new SqlServerModule()).CreateScope(process, logger)) {
 
 
-					var cleaner = new Regex("[\r\n ]");
+					var cleaner = new Regex(@"[\r\n\t ]");
 					var expected = cleaner.Replace(Expected, string.Empty);
 					var pipe = new PipelineContext(new ConsoleLogger(), process);
-					var actual = cleaner.Replace(pipe.SqlCreateFlatTable(new SqlServerConnectionFactory(new Connection())), string.Empty);
-					Assert.AreEqual(expected, actual);
+					var actual = pipe.SqlCreateFlatTable(new SqlServerConnectionFactory(new Connection()));
+					Assert.AreEqual(expected, cleaner.Replace(actual, string.Empty));
 
 				}
          }
