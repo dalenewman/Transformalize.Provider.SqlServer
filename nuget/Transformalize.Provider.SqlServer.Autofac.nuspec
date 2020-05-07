@@ -2,10 +2,11 @@
 <package>
    <metadata>
       <id>Transformalize.Provider.SqlServer.Autofac</id>
-      <version>0.7.6-beta</version>
+      <version>0.7.8-beta</version>
       <title>Transformalize Transform using SqlServer Autofac Module</title>
       <authors>Dale Newman</authors>
       <owners>Dale Newman</owners>
+      <license type="expression">Apache-2.0</license>
       <projectUrl>https://github.com/dalenewman/Transformalize.Provider.SqlServer</projectUrl>
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
       <description>Transformalize Transform using SqlServer Autofac Module</description>
@@ -15,11 +16,11 @@
       <dependencies>
          <group targetFramework="net462">
             <dependency id="Transformalize.Container.Autofac" version="0.7.6-beta" />
-            <dependency id="Transformalize.Provider.SqlServer" version="0.7.6-beta" />
+            <dependency id="Transformalize.Provider.SqlServer" version="0.7.8-beta" />
          </group>
          <group targetFramework="netstandard2.0">
             <dependency id="Transformalize.Container.Autofac" version="0.7.6-beta" />
-            <dependency id="Transformalize.Provider.SqlServer" version="0.7.6-beta" />
+            <dependency id="Transformalize.Provider.SqlServer" version="0.7.8-beta" />
          </group>
       </dependencies>
    </metadata>

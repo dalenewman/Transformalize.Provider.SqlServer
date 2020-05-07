@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Transformalize.Providers.SqlServer.Autofac</RootNamespace>
     <AssemblyName>Transformalize.Provider.SqlServer.Autofac</AssemblyName>
-    <Version>0.7.6-beta</Version>
+    <Version>0.7.8-beta</Version>
   </PropertyGroup>
 
   <Import Project="..\Transformalize.Provider.SqlServer.Autofac.Shared\Transformalize.Provider.SqlServer.Autofac.Shared.projitems" Label="Shared" />
@@ -12,7 +12,7 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.4" />
     <PackageReference Include="Transformalize.Container.Autofac" Version="0.7.6-beta" />
-    <PackageReference Include="Transformalize.Provider.Ado" Version="0.7.6-beta" />
+    <PackageReference Include="Transformalize.Provider.Ado" Version="0.7.8-beta" />
   </ItemGroup>
 
   <ItemGroup>

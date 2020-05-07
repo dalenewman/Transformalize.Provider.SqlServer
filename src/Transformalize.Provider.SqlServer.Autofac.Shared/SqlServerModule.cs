@@ -17,6 +17,7 @@
 #endregion
 
 using Autofac;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Transformalize.Configuration;
@@ -40,6 +41,8 @@ namespace Transformalize.Providers.SqlServer.Autofac {
          _process = process;
       }
 
+      public Func<Connection,IConnectionFactory> ConnectionFactory { get; set; }
+
       protected override void Load(ContainerBuilder builder) {
 
          if (_process == null && !builder.Properties.ContainsKey("Process")) {
@@ -52,7 +55,11 @@ namespace Transformalize.Providers.SqlServer.Autofac {
          foreach (var connection in process.Connections.Where(c => c.Provider == SqlServer)) {
 
             // Connection Factory
-            builder.Register<IConnectionFactory>(ctx => new SqlServerConnectionFactory(connection)).Named<IConnectionFactory>(connection.Key).InstancePerLifetimeScope();
+            if(ConnectionFactory == null) {
+               builder.Register<IConnectionFactory>(ctx => new SqlServerConnectionFactory(connection)).Named<IConnectionFactory>(connection.Key).InstancePerLifetimeScope();
+            } else {
+               builder.Register(ctx => ConnectionFactory(connection)).Named<IConnectionFactory>(connection.Key).InstancePerLifetimeScope();
+            }            
 
             // Schema Reader
             builder.Register<ISchemaReader>(ctx => {
