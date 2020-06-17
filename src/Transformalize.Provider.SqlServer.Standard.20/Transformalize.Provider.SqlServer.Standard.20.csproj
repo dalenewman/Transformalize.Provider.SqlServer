@@ -4,13 +4,13 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Transformalize.Providers.SqlServer</RootNamespace>
     <AssemblyName>Transformalize.Provider.SqlServer</AssemblyName>
-    <Version>0.7.6-beta</Version>
+    <Version>0.8.1-beta</Version>
   </PropertyGroup>
 
   <Import Project="..\Transformalize.Provider.SqlServer.Shared\Transformalize.Provider.SqlServer.Shared.projitems" Label="Shared" />
 
   <ItemGroup>
-    <PackageReference Include="Transformalize.Provider.Ado" Version="0.7.8-beta" />
+    <PackageReference Include="Transformalize.Provider.Ado" Version="0.8.1-beta" />
   </ItemGroup>
 
 </Project>

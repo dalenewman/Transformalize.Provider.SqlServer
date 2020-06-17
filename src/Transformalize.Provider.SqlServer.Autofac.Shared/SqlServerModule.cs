@@ -70,7 +70,7 @@ namespace Transformalize.Providers.SqlServer.Autofac {
          }
 
          // entitiy input
-         foreach (var entity in process.Entities.Where(e => process.Connections.First(c => c.Name == e.Connection).Provider == SqlServer)) {
+         foreach (var entity in process.Entities.Where(e => process.Connections.First(c => c.Name == e.Input).Provider == SqlServer)) {
 
             // INPUT READER
             builder.Register<IRead>(ctx => {
@@ -93,7 +93,7 @@ namespace Transformalize.Providers.SqlServer.Autofac {
          }
 
          // entity output
-         if (process.Output().Provider == SqlServer) {
+         if (process.GetOutputConnection().Provider == SqlServer) {
 
             var calc = process.ToCalculatedFieldsProcess();
 
@@ -195,14 +195,14 @@ namespace Transformalize.Providers.SqlServer.Autofac {
 
                      builder.Register<IEntityDeleteHandler>(ctx => {
                         var outputContext = ctx.ResolveNamed<OutputContext>(entity.Key);
-                        var connectionFactory = ctx.ResolveNamed<IConnectionFactory>(process.Output().Key);
+                        var connectionFactory = ctx.ResolveNamed<IConnectionFactory>(process.GetOutputConnection().Key);
                         return new AdoCrossDatabaseEntityDeleteHandler(outputContext, connectionFactory);
                      }).Named<IEntityDeleteHandler>(entity.Key);
 
                   } else {
 
                      // register input keys and hashcode reader if necessary
-                     var sqlInput = process.Connections.FirstOrDefault(c => c.Provider == SqlServer && c.Name == entity.Connection);
+                     var sqlInput = process.Connections.FirstOrDefault(c => c.Provider == SqlServer && c.Name == entity.Input);
 
                      if (sqlInput != null) {
                         builder.Register(ctx => {
@@ -225,14 +225,14 @@ namespace Transformalize.Providers.SqlServer.Autofac {
                         var rowCapacity = context.Entity.GetPrimaryKey().Length;
                         var rowFactory = new RowFactory(rowCapacity, false, true);
 
-                        var outputConnection = process.Output();
+                        var outputConnection = process.GetOutputConnection();
                         var ocf = ctx.ResolveNamed<IConnectionFactory>(outputConnection.Key);
                         return new AdoReader(context, entity.GetPrimaryKey(), ocf, rowFactory, ReadFrom.Output);
 
                      }).Named<IReadOutputKeysAndHashCodes>(entity.Key);
 
                      builder.Register((ctx) => {
-                        var outputConnection = process.Output();
+                        var outputConnection = process.GetOutputConnection();
                         var outputContext = ctx.ResolveNamed<OutputContext>(entity.Key);
                         var ocf = ctx.ResolveNamed<IConnectionFactory>(outputConnection.Key);
                         return new AdoDeleter(outputContext, ocf);
