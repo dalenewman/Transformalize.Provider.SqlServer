@@ -1,34 +1,34 @@
 <?xml version="1.0"?>
 <package>
-   <metadata>
-      <id>Transformalize.Provider.SqlServer.Autofac</id>
-      <version>0.8.1-beta</version>
-      <title>Transformalize Transform using SqlServer Autofac Module</title>
-      <authors>Dale Newman</authors>
-      <owners>Dale Newman</owners>
-      <license type="expression">Apache-2.0</license>
-      <projectUrl>https://github.com/dalenewman/Transformalize.Provider.SqlServer</projectUrl>
-      <requireLicenseAcceptance>false</requireLicenseAcceptance>
-      <description>Transformalize Transform using SqlServer Autofac Module</description>
-      <releaseNotes>added .net standard 20 target</releaseNotes>
-      <copyright>Copyright 2013-2020</copyright>
-      <tags>etl</tags>
-      <dependencies>
-         <group targetFramework="net462">
-            <dependency id="Transformalize.Container.Autofac" version="0.8.1-beta" />
-            <dependency id="Transformalize.Provider.SqlServer" version="0.8.1-beta" />
-         </group>
-         <group targetFramework="netstandard2.0">
-            <dependency id="Transformalize.Container.Autofac" version="0.8.1-beta" />
-            <dependency id="Transformalize.Provider.SqlServer" version="0.8.1-beta" />
-         </group>
-      </dependencies>
-   </metadata>
-   <files>
-      <file src="..\src\Transformalize.Provider.SqlServer.Autofac\bin\Debug\Transformalize.Provider.SqlServer.Autofac.dll" target="lib\net462\Transformalize.Provider.SqlServer.Autofac.dll" />
-      <file src="..\src\Transformalize.Provider.SqlServer.Autofac\bin\Debug\Transformalize.Provider.SqlServer.Autofac.pdb" target="lib\net462\Transformalize.Provider.SqlServer.Autofac.pdb" />
-      <file src="..\src\Transformalize.Provider.SqlServer.Autofac.Standard.20\bin\Debug\netstandard2.0\Transformalize.Provider.SqlServer.Autofac.dll" target="lib\netstandard2.0\Transformalize.Provider.SqlServer.Autofac.dll" />
-      <file src="..\src\Transformalize.Provider.SqlServer.Autofac.Standard.20\bin\Debug\netstandard2.0\Transformalize.Provider.SqlServer.Autofac.pdb" target="lib\netstandard2.0\Transformalize.Provider.SqlServer.Autofac.pdb" />
-      <file src="..\src\Transformalize.Provider.SqlServer.Autofac.Standard.20\bin\Debug\netstandard2.0\Transformalize.Provider.SqlServer.Autofac.deps.json" target="lib\netstandard2.0\Transformalize.Provider.SqlServer.Autofac.deps.json" />
-   </files>
+  <metadata>
+    <id>Transformalize.Provider.SqlServer.Autofac</id>
+    <version>0.8.17-beta</version>
+    <title>Transformalize Transform using SqlServer Autofac Module</title>
+    <authors>Dale Newman</authors>
+    <owners>Dale Newman</owners>
+    <license type="expression">Apache-2.0</license>
+    <projectUrl>https://github.com/dalenewman/Transformalize.Provider.SqlServer</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Transformalize Transform using SqlServer Autofac Module</description>
+    <releaseNotes>Switched to Microsoft.Data.SqlClient</releaseNotes>
+    <copyright>Copyright 2013-2020</copyright>
+    <tags>etl</tags>
+    <dependencies>
+      <group targetFramework="net462">
+        <dependency id="Transformalize.Container.Autofac" version="0.8.15-beta" />
+        <dependency id="Transformalize.Provider.SqlServer" version="0.8.17-beta" />
+      </group>
+      <group targetFramework="netstandard2.0">
+        <dependency id="Transformalize.Container.Autofac" version="0.8.15-beta" />
+        <dependency id="Transformalize.Provider.SqlServer" version="0.8.17-beta" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\src\Transformalize.Provider.SqlServer.Autofac\bin\Debug\Transformalize.Provider.SqlServer.Autofac.dll" target="lib\net462\Transformalize.Provider.SqlServer.Autofac.dll" />
+    <file src="..\src\Transformalize.Provider.SqlServer.Autofac\bin\Debug\Transformalize.Provider.SqlServer.Autofac.pdb" target="lib\net462\Transformalize.Provider.SqlServer.Autofac.pdb" />
+    <file src="..\src\Transformalize.Provider.SqlServer.Autofac.Standard.20\bin\Debug\netstandard2.0\Transformalize.Provider.SqlServer.Autofac.dll" target="lib\netstandard2.0\Transformalize.Provider.SqlServer.Autofac.dll" />
+    <file src="..\src\Transformalize.Provider.SqlServer.Autofac.Standard.20\bin\Debug\netstandard2.0\Transformalize.Provider.SqlServer.Autofac.pdb" target="lib\netstandard2.0\Transformalize.Provider.SqlServer.Autofac.pdb" />
+    <file src="..\src\Transformalize.Provider.SqlServer.Autofac.Standard.20\bin\Debug\netstandard2.0\Transformalize.Provider.SqlServer.Autofac.deps.json" target="lib\netstandard2.0\Transformalize.Provider.SqlServer.Autofac.deps.json" />
+  </files>
 </package>

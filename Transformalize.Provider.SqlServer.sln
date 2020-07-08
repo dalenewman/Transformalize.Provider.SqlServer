@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{8FE1844F
 		nuget\nuget.bat = nuget\nuget.bat
 		nuget\Transformalize.Provider.SqlServer.Autofac.nuspec = nuget\Transformalize.Provider.SqlServer.Autofac.nuspec
 		nuget\Transformalize.Provider.SqlServer.nuspec = nuget\Transformalize.Provider.SqlServer.nuspec
+		nuget\Transformalize.Provider.SqlServer.SqlClient.1.Autofac.nuspec = nuget\Transformalize.Provider.SqlServer.SqlClient.1.Autofac.nuspec
+		nuget\Transformalize.Provider.SqlServer.SqlClient.1.nuspec = nuget\Transformalize.Provider.SqlServer.SqlClient.1.nuspec
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transformalize.Provider.SqlServer", "src\Transformalize.Provider.SqlServer\Transformalize.Provider.SqlServer.csproj", "{4ED1E259-756A-40B8-9800-F563B59E0206}"
@@ -44,12 +46,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTests.Core", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transformalize.Provider.SqlServer.Standard.20", "src\Transformalize.Provider.SqlServer.Standard.20\Transformalize.Provider.SqlServer.Standard.20.csproj", "{473AC45F-A4A6-4A7C-ACAF-A731395A8E85}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transformalize.Provider.SqlServer.SqlClient.1", "src\Transformalize.Provider.SqlServer.SqlClient.1\Transformalize.Provider.SqlServer.SqlClient.1.csproj", "{3A92DA2A-DF2F-46E2-A740-F875EFD99ECD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transformalize.Provider.SqlServer.SqlClient.1.Autofac", "src\Transformalize.Provider.SqlServer.SqlClient.1.Autofac\Transformalize.Provider.SqlServer.SqlClient.1.Autofac.csproj", "{75C7E3BC-1D6E-4084-A7EF-F90D333F061D}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\IntegrationTests.Shared\IntegrationTests.Shared.projitems*{058fae31-0608-48f8-84e4-04c3398689c1}*SharedItemsImports = 4
+		src\Transformalize.Provider.SqlServer.Shared\Transformalize.Provider.SqlServer.Shared.projitems*{3a92da2a-df2f-46e2-a740-f875efd99ecd}*SharedItemsImports = 5
 		src\Transformalize.Provider.SqlServer.Shared\Transformalize.Provider.SqlServer.Shared.projitems*{473ac45f-a4a6-4a7c-acaf-a731395a8e85}*SharedItemsImports = 5
 		src\Transformalize.Provider.SqlServer.Shared\Transformalize.Provider.SqlServer.Shared.projitems*{4ed1e259-756a-40b8-9800-f563b59e0206}*SharedItemsImports = 4
 		src\IntegrationTests.Shared\IntegrationTests.Shared.projitems*{58d8ac84-7297-4384-b4f5-ae995a9d5de6}*SharedItemsImports = 5
+		src\Transformalize.Provider.SqlServer.Autofac.Shared\Transformalize.Provider.SqlServer.Autofac.Shared.projitems*{75c7e3bc-1d6e-4084-a7ef-f90d333f061d}*SharedItemsImports = 5
 		src\Transformalize.Provider.SqlServer.Autofac.Shared\Transformalize.Provider.SqlServer.Autofac.Shared.projitems*{80b3338f-6dce-4eed-9ed3-ba671c1e25f2}*SharedItemsImports = 13
 		src\IntegrationTests.Shared\IntegrationTests.Shared.projitems*{9c03d903-b13a-4af5-a38d-298a9e8a09cd}*SharedItemsImports = 13
 		src\Transformalize.Provider.SqlServer.Autofac.Shared\Transformalize.Provider.SqlServer.Autofac.Shared.projitems*{a6c1332c-480c-436f-8a2d-5e728b3b0f38}*SharedItemsImports = 5
@@ -85,6 +93,14 @@ Global
 		{473AC45F-A4A6-4A7C-ACAF-A731395A8E85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{473AC45F-A4A6-4A7C-ACAF-A731395A8E85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{473AC45F-A4A6-4A7C-ACAF-A731395A8E85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A92DA2A-DF2F-46E2-A740-F875EFD99ECD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A92DA2A-DF2F-46E2-A740-F875EFD99ECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A92DA2A-DF2F-46E2-A740-F875EFD99ECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A92DA2A-DF2F-46E2-A740-F875EFD99ECD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75C7E3BC-1D6E-4084-A7EF-F90D333F061D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75C7E3BC-1D6E-4084-A7EF-F90D333F061D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75C7E3BC-1D6E-4084-A7EF-F90D333F061D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75C7E3BC-1D6E-4084-A7EF-F90D333F061D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,6 +114,8 @@ Global
 		{80B3338F-6DCE-4EED-9ED3-BA671C1E25F2} = {95911DE3-3BB5-4E80-B810-F585D670682F}
 		{A6C1332C-480C-436F-8A2D-5E728B3B0F38} = {95911DE3-3BB5-4E80-B810-F585D670682F}
 		{473AC45F-A4A6-4A7C-ACAF-A731395A8E85} = {F29983BC-EA56-4AAA-B126-445DE7E3448C}
+		{3A92DA2A-DF2F-46E2-A740-F875EFD99ECD} = {F29983BC-EA56-4AAA-B126-445DE7E3448C}
+		{75C7E3BC-1D6E-4084-A7EF-F90D333F061D} = {95911DE3-3BB5-4E80-B810-F585D670682F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {960FC2FA-8CAD-47A3-8A4E-4173AE406E71}

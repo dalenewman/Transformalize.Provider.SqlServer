@@ -9,6 +9,7 @@
     <Import_RootNamespace>Transformalize.Provider.SqlServer.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)IOrderHint.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SqlServerConnectionFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SqlServerWriter.cs" />
   </ItemGroup>

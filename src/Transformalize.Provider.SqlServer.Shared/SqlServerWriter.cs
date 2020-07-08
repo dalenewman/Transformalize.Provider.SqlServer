@@ -18,7 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using Transformalize.Context;
 using Transformalize.Contracts;
@@ -36,6 +36,7 @@ namespace Transformalize.Providers.SqlServer {
       private readonly IConnectionFactory _cf;
       private readonly IBatchReader _outputKeysReader;
       private readonly IWrite _sqlUpdater;
+      private readonly IOrderHint _orderHint;
       private readonly IOperation _minDates;
 
       public SqlServerWriter(
@@ -56,6 +57,7 @@ namespace Transformalize.Providers.SqlServer {
 
          _outputKeysReader = matcher;
          _sqlUpdater = updater;
+         _orderHint = new ClusteredKeyOrderHint();
 
          if (output.OutputFields.Any(f => f.Type.StartsWith("date"))) {
             _minDates = new MinDateTransform(output, new DateTime(1753, 1, 1));
@@ -107,6 +109,10 @@ namespace Transformalize.Providers.SqlServer {
 
                for (var i = 0; i < _output.OutputFields.Length; i++) {
                   bulkCopy.ColumnMappings.Add(i, i);
+               }
+
+               if(_orderHint != null) {
+                  _orderHint.Set(bulkCopy, _output.OutputFields);
                }
 
                foreach (var part in rows.Partition(_output.Entity.InsertSize)) {
