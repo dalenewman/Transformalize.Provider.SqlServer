@@ -27,7 +27,6 @@ using Transformalize.Providers.Ado.Ext;
 using Transformalize.Providers.Console;
 using Transformalize.Providers.SqlServer;
 using Transformalize.Providers.SqlServer.Autofac;
-using Transformalize.Transforms.CSharp.Autofac;
 
 namespace IntegrationTests {
 
@@ -121,9 +120,9 @@ namespace IntegrationTests {
       [TestMethod]
       public void FlatSql() {
          var logger = new ConsoleLogger(LogLevel.Debug);
-         using (var outer = new ConfigurationContainer(new CSharpModule()).CreateScope(@"Files\Northwind.xml", logger)) {
+         using (var outer = new ConfigurationContainer().CreateScope(@"Files\Northwind.xml", logger)) {
             var process = outer.Resolve<Process>();
-            using (var inner = new Container(new CSharpModule(), new SqlServerModule()).CreateScope(process, logger)) {
+            using (var inner = new Container(new SqlServerModule()).CreateScope(process, logger)) {
 
 
 					var cleaner = new Regex(@"[\r\n\t ]");
