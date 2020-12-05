@@ -37,13 +37,13 @@ namespace IntegrationTests {
 
       [TestMethod]
       public void Write() {
-         const string xml = @"<add name='Bogus' mode='init'>
+         var xml = $@"<add name='Bogus' mode='init'>
   <parameters>
     <add name='Size' type='int' value='1000' />
   </parameters>
   <connections>
     <add name='input' provider='bogus' seed='1' />
-    <add name='output' provider='sqlserver' database='Junk' />
+    <add name='output' provider='sqlserver' database='Junk' user='{Tester.User}' password='{Tester.Pw}' />
   </connections>
   <entities>
     <add name='Contact' size='@[Size]'>
@@ -73,9 +73,9 @@ namespace IntegrationTests {
 
       [TestMethod]
       public void Read() {
-         const string xml = @"<add name='Bogus'>
+         var xml = $@"<add name='Bogus'>
   <connections>
-    <add name='input' provider='sqlserver' database='Junk' />
+    <add name='input' provider='sqlserver' database='Junk' user='{Tester.User}' password='{Tester.Pw}' />
     <add name='output' provider='internal' />
   </connections>
   <entities>
@@ -110,12 +110,12 @@ namespace IntegrationTests {
 
       [TestMethod]
       public void ReadWithExpression() {
-         const string xml = @"<add name='Bogus'>
+         var xml = $@"<add name='Bogus'>
   <parameters>
      <add name='Id' value='2' />
   </parameters>
   <connections>
-    <add name='input' provider='sqlserver' database='Junk' />
+    <add name='input' provider='sqlserver' database='Junk' user='{Tester.User}' password='{Tester.Pw}' />
     <add name='output' provider='internal' />
   </connections>
   <entities>
@@ -153,10 +153,10 @@ namespace IntegrationTests {
 
       [TestMethod]
       public void CorrelatedSubQuery() {
-         const string xml = @"<add name='Test'>
+         var xml = $@"<add name='Test'>
   <connections>
     <add name='input' provider='internal' />
-    <add name='northwind' provider='sqlserver' server='localhost' database='NorthWind' />
+    <add name='northwind' provider='sqlserver' server='localhost' database='NorthWind' user='{Tester.User}' password='{Tester.Pw}' />
     <add name='output' provider='internal' />
   </connections>
   <entities>
@@ -207,17 +207,10 @@ namespace IntegrationTests {
       [TestMethod]
       public void CorrelatedSubCommand() {
 
-         /* -- test table
-          * create table TestTable(
-TestTableId INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-TestColumn1 NVARCHAR(10) NOT NULL,
-TestColumn2 INT NOT NULL
-); */
-
-         const string xml = @"<add name='Test'>
+         var xml = $@"<add name='Test'>
   <connections>
     <add name='input' provider='internal' />
-    <add name='junk' provider='sqlserver' server='localhost' database='Junk' />
+    <add name='junk' provider='sqlserver' server='localhost' database='Junk' user='{Tester.User}' password='{Tester.Pw}' />
     <add name='output' provider='internal' />
   </connections>
   <entities>
@@ -245,6 +238,17 @@ TestColumn2 INT NOT NULL
 
                using (var cn = factory.GetConnection()) {
                   cn.Open();
+                  try {
+                     cn.Execute(@"
+                        CREATE TABLE TestTable(
+                           TestTableId INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+                           TestColumn1 NVARCHAR(10) NOT NULL,
+                           TestColumn2 INT NOT NULL
+                        );
+                     ");
+                  } catch (System.Exception) {
+                     inner.Resolve<IContext>().Info("TestTable already exists.");
+                  }
                   cn.Execute("DELETE FROM TestTable;");
                }
 

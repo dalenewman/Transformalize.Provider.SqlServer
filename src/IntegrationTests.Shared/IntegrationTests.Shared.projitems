@@ -21,6 +21,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Tester.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeleteIntegration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FlatTable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NorthWindIntegrationSqlServer.cs" />

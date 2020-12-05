@@ -18,12 +18,12 @@ namespace IntegrationTests {
       [TestMethod]
       public void Test() {
 
-         const string cfg = @"<cfg name='TestTransformThenValidate' mode='@[Mode]'>
+         var cfg = $@"<cfg name='TestTransformThenValidate' mode='@[Mode]'>
    <parameters>
       <add name='Mode' value='default' />
    </parameters>
    <connections>
-      <add name='input' provider='sqlserver' server='localhost' database='Junk' />
+      <add name='input' provider='sqlserver' server='localhost' database='Junk' user='{Tester.User}' password='{Tester.Pw}' />
    </connections>
    <entities>
       <add name='TestData' alias='Data'>
@@ -49,12 +49,16 @@ namespace IntegrationTests {
                   System.Diagnostics.Debug.Write(error);
                }
             } else {
-               using (var inner = new Container(new SqlServerModule(process), new AdoProviderModule()).CreateScope(process, logger)) {
+               using (var inner = new Container(new AdoProviderModule(), new SqlServerModule(process)).CreateScope(process, logger)) {
                   var connectionFactory = inner.ResolveNamed<IConnectionFactory>("TestTransformThenValidateinput");
 
                   using (var cn = connectionFactory.GetConnection("Test")) {
                      // set up test data
-                     cn.Execute("DROP TABLE TestData;");
+                     try {
+                        cn.Execute("DROP TABLE TestData;");
+                     } catch (System.Exception) {
+
+                     }
                      cn.Execute("CREATE TABLE TestData(Id INT NOT NULL PRIMARY KEY,Field1 NVARCHAR(60));");
                      cn.Execute("INSERT INTO TestData(Id,Field1) VALUES(@Id,@Field1)", new { Id = 1, Field1 = "1,001" });
                      cn.Execute("INSERT INTO TestData(Id,Field1) VALUES(@Id,@Field1)", new { Id = 2, Field1 = "2.002" });

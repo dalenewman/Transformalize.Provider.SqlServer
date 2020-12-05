@@ -66,13 +66,14 @@ namespace IntegrationTests {
       public Connection InputConnection { get; set; } = new Connection {
          Name = "input",
          Provider = "sqlserver",
-         ConnectionString = "server=localhost;database=NorthWind;trusted_connection=true;"
+         // ConnectionString = "server=localhost;database=NorthWind;trusted_connection=true;"
+         ConnectionString = $"server=localhost;database=NorthWind;User Id = {Tester.User};Password = {Tester.Pw};"
       };
 
       public Connection OutputConnection { get; set; } = new Connection {
          Name = "output",
          Provider = "sqlserver",
-         ConnectionString = "Server=localhost;Database=TflNorthWind;trusted_connection=true;"
+         ConnectionString = $"server=localhost;database=TflNorthWind;User Id = {Tester.User};Password = {Tester.Pw};"
       };
 
       [TestMethod]
@@ -114,7 +115,7 @@ INSERT INTO SlaveTable(Id,d3,d4)VALUES(1,'d5','d6');
          var logger = new ConsoleLogger(LogLevel.Debug);
 
          // RUN INIT AND TEST
-         using (var outer = new ConfigurationContainer().CreateScope(@"Files\SlaveGetsInsert.xml?Mode=init", logger)) {
+         using (var outer = new ConfigurationContainer().CreateScope($@"Files\SlaveGetsInsert.xml?Mode=init&User={Tester.User}&Pw={Tester.Pw}", logger)) {
             var process = outer.Resolve<Process>();
             using (var inner = new Container(new SqlServerModule()).CreateScope(process, logger)) {
 
@@ -132,7 +133,7 @@ INSERT INTO SlaveTable(Id,d3,d4)VALUES(1,'d5','d6');
          }
 
          // FIRST DELTA, NO CHANGES
-         using (var outer = new ConfigurationContainer().CreateScope(@"Files\SlaveGetsInsert.xml", logger)) {
+         using (var outer = new ConfigurationContainer().CreateScope($@"Files\SlaveGetsInsert.xml?User={Tester.User}&Pw={Tester.Pw}", logger)) {
             var process = outer.Resolve<Process>();
             using (var inner = new Container(new SqlServerModule()).CreateScope(process, logger)) {
 
@@ -158,7 +159,7 @@ INSERT INTO SlaveTable(Id,d3,d4)VALUES(1,'d5','d6');
          }
 
          // RUN AND CHECK
-         using (var outer = new ConfigurationContainer().CreateScope(@"Files\SlaveGetsInsert.xml", logger)) {
+         using (var outer = new ConfigurationContainer().CreateScope($@"Files\SlaveGetsInsert.xml?User={Tester.User}&Pw={Tester.Pw}", logger)) {
             var process = outer.Resolve<Process>();
             using (var inner = new Container(new SqlServerModule()).CreateScope(process, logger)) {
                var controller = inner.Resolve<IProcessController>();

@@ -1,19 +1,21 @@
 ﻿<cfg name='TestDeletes' mode='@[Mode]'>
-  <parameters>
-    <add name='Mode' value='default' />
-  </parameters>
-  <connections>
-    <add name='input' provider='sqlserver' database='NorthWind' />
-    <add name='output' provider='sqlserver' database='TflNorthWind' />
-  </connections>
-  <entities>
-    <add name='TestDeletes' alias='Data' delete='true' version='RowVersion'>
-      <fields>
-        <add name='TextValue' />
-        <add name='Id' primary-key='true' type='int' />
-        <add name='NumericValue' primary-key='true' type='int' />
-        <add name='RowVersion' type='byte[]' length='8' />
-      </fields>
-    </add>
-  </entities>
+   <parameters>
+      <add name='Mode' value='default' />
+      <add name='User' value='*' />
+      <add name='Pw' value='*' />
+   </parameters>
+   <connections>
+      <add name='input' provider='sqlserver' database='NorthWind' user='@[User]' password='@[Pw]' />
+      <add name='output' provider='sqlserver' database='TflNorthWind' user='@[User]' password='@[Pw]' />
+   </connections>
+   <entities>
+      <add name='TestDeletes' alias='Data' delete='true' version='RowVersion'>
+         <fields>
+            <add name='TextValue' />
+            <add name='Id' primary-key='true' type='int' />
+            <add name='NumericValue' primary-key='true' type='int' />
+            <add name='RowVersion' type='byte[]' length='8' />
+         </fields>
+      </add>
+   </entities>
 </cfg>

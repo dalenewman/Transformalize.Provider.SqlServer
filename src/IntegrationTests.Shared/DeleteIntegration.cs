@@ -35,13 +35,14 @@ namespace IntegrationTests {
       public Connection InputConnection { get; set; } = new Connection {
          Name = "input",
          Provider = "sqlserver",
-         ConnectionString = "server=localhost;database=NorthWind;trusted_connection=true;"
+         // ConnectionString = "server=localhost;database=NorthWind;trusted_connection=true;"
+         ConnectionString = $"server=localhost;database=NorthWind;User Id={Tester.User};Password={Tester.Pw};"
       };
 
       public Connection OutputConnection { get; set; } = new Connection {
          Name = "output",
          Provider = "sqlserver",
-         ConnectionString = "Server=localhost;Database=TflNorthwind;trusted_connection=true;"
+         ConnectionString = $"server=localhost;database=TflNorthWind;User Id={Tester.User};Password={Tester.Pw};"
       };
 
       [TestMethod]
@@ -49,7 +50,7 @@ namespace IntegrationTests {
 
          var logger = new ConsoleLogger(LogLevel.Debug);
 
-         const string cfg = @"files\DeleteIntegration.xml";
+         var cfg = $@"files\DeleteIntegration.xml?User={Tester.User}&Pw={Tester.Pw}";
 
          // INITIALIZE INPUT
          using (var cn = new SqlServerConnectionFactory(InputConnection).GetConnection()) {
@@ -73,7 +74,7 @@ namespace IntegrationTests {
          }
 
          // RUN INIT AND TEST
-         using (var outer = new ConfigurationContainer().CreateScope(cfg + "?Mode=init", logger)) {
+         using (var outer = new ConfigurationContainer().CreateScope(cfg + "&Mode=init", logger)) {
             var process = outer.Resolve<Process>();
             using (var inner = new Container(new SqlServerModule()).CreateScope(process, logger)) {
 
