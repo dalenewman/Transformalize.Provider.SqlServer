@@ -104,6 +104,7 @@ namespace Transformalize.Providers.SqlServer {
             ConnectTimeout = _c.RequestTimeout,
             DataSource = _c.Server,
             InitialCatalog = _c.Database,
+            MultipleActiveResultSets = _c.Mars,
             IntegratedSecurity = _c.User == string.Empty,
             UserID = _c.User,
             Password = _c.Password

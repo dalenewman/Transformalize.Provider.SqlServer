@@ -3,12 +3,12 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Transformalize.Providers.SqlServer.Autofac</RootNamespace>
     <AssemblyName>Transformalize.Provider.SqlServer.Autofac</AssemblyName>
-    <Version>0.8.29-beta</Version>
+    <Version>0.8.33-beta</Version>
   </PropertyGroup>
   <Import Project="..\Transformalize.Provider.SqlServer.Autofac.Shared\Transformalize.Provider.SqlServer.Autofac.Shared.projitems" Label="Shared" />
   <ItemGroup>
-    <PackageReference Include="Transformalize.Container.Autofac" Version="0.8.29-beta" />
-    <PackageReference Include="Transformalize.Provider.Ado" Version="0.8.31-beta" />
+    <PackageReference Include="Transformalize.Container.Autofac" Version="0.8.31-beta" />
+    <PackageReference Include="Transformalize.Provider.Ado" Version="0.8.33-beta" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Transformalize.Provider.SqlServer.SqlClient.1\Transformalize.Provider.SqlServer.SqlClient.1.csproj" />

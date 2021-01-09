@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Transformalize.Provider.SqlServer.Autofac</id>
-    <version>0.8.29-beta</version>
+    <version>0.8.33-beta</version>
     <title>Transformalize Transform using SqlServer Autofac Module</title>
     <authors>Dale Newman</authors>
     <owners>Dale Newman</owners>
@@ -10,17 +10,17 @@
     <projectUrl>https://github.com/dalenewman/Transformalize.Provider.SqlServer</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Transformalize Transform using SqlServer Autofac Module</description>
-    <releaseNotes>Switched to Microsoft.Data.SqlClient</releaseNotes>
-    <copyright>Copyright 2013-2020</copyright>
+    <releaseNotes>option to turn on mars</releaseNotes>
+    <copyright>Copyright 2013-2021</copyright>
     <tags>etl</tags>
     <dependencies>
       <group targetFramework="net462">
-        <dependency id="Transformalize.Container.Autofac" version="0.8.29-beta" />
-        <dependency id="Transformalize.Provider.SqlServer" version="0.8.29-beta" />
+        <dependency id="Transformalize.Container.Autofac" version="0.8.31-beta" />
+        <dependency id="Transformalize.Provider.SqlServer" version="0.8.33-beta" />
       </group>
       <group targetFramework="netstandard2.0">
-        <dependency id="Transformalize.Container.Autofac" version="0.8.29-beta" />
-        <dependency id="Transformalize.Provider.SqlServer" version="0.8.29-beta" />
+        <dependency id="Transformalize.Container.Autofac" version="0.8.31-beta" />
+        <dependency id="Transformalize.Provider.SqlServer" version="0.8.33-beta" />
       </group>
     </dependencies>
   </metadata>
