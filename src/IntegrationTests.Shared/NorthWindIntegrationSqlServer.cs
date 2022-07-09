@@ -39,13 +39,13 @@ namespace IntegrationTests {
          Name = "input",
          Provider = "sqlserver",
          // ConnectionString = "server=localhost;database=NorthWind;trusted_connection=true;"
-         ConnectionString = $"server=localhost;database=NorthWind;User Id={Tester.User};Password={Tester.Pw};"
+         ConnectionString = $"server=localhost;database=NorthWind;User Id={Tester.User};Password={Tester.Pw};Trust Server Certificate=True"
       };
 
       public Connection OutputConnection { get; set; } = new Connection {
          Name = "output",
          Provider = "sqlserver",
-         ConnectionString = $"server=localhost;database=TflNorthWind;User Id={Tester.User};Password={Tester.Pw};"
+         ConnectionString = $"server=localhost;database=TflNorthWind;User Id={Tester.User};Password={Tester.Pw};Trust Server Certificate=True"
       };
 
       [TestMethod]

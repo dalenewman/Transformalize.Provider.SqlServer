@@ -107,7 +107,9 @@ namespace Transformalize.Providers.SqlServer {
             MultipleActiveResultSets = _c.Mars,
             IntegratedSecurity = _c.User == string.Empty,
             UserID = _c.User,
-            Password = _c.Password
+            Password = _c.Password,
+            Encrypt = _c.Encrypt,
+            TrustServerCertificate = _c.TrustServerCertificate
          }).ConnectionString;
 
          return _c.ConnectionString;

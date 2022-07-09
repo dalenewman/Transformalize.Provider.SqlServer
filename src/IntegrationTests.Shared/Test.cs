@@ -43,7 +43,7 @@ namespace IntegrationTests {
   </parameters>
   <connections>
     <add name='input' provider='bogus' seed='1' />
-    <add name='output' provider='sqlserver' database='Junk' user='{Tester.User}' password='{Tester.Pw}' />
+    <add name='output' provider='sqlserver' encrypt='true' trust-server-certificate='true' database='Junk' user='{Tester.User}' password='{Tester.Pw}' />
   </connections>
   <entities>
     <add name='Contact' size='@[Size]'>
