@@ -28,6 +28,7 @@ using Transformalize.Providers.Ado.Autofac;
 using Transformalize.Providers.Bogus.Autofac;
 using Transformalize.Providers.Console;
 using Transformalize.Providers.SqlServer.Autofac;
+using Transformalize.Transform.GoogleMaps.Autofac;
 using Transformalize.Transforms.Ado.Autofac;
 
 namespace IntegrationTests {
@@ -70,6 +71,60 @@ namespace IntegrationTests {
             }
          }
       }
+
+      [TestMethod]
+      public void VladProblems() {
+         var xml = $@"<cfg name='GeoCoded' output='output' mode='init' >
+  <connections>
+    <add name='input' provider='sqlserver' database='Junk' user='{Tester.User}' password='{Tester.Pw}' />
+    <add name='output' provider='sqlserver' database='Junk' user='{Tester.User}' password='{Tester.Pw}' />
+  </connections>
+  <entities>
+    <add name='FMLocation' input='input'>
+      <fields>
+        <add name='Id' primary-key='true' />
+        <add name='Address' length='255'>
+          <transforms>
+            <add method='google-geocode'
+                 api-key='vlads-secret'
+                 time='1000'
+                 country='United States'>
+              <fields>
+                <add name='Latitude' type='double' />
+                <add name='Longitude' type='double' />
+                <add name='FormattedAddress' type='string' length='255' />
+                <add name='Route' type='string' />
+                <add name='StreetNumber' label='Street Number' />
+                <add name='Placeid' type='string' length='255' />
+                <add name='Locality' type='string' length='255' />
+                <add name='Political' type='string' length='255' />
+                <add name='Locationtype' type='string' length='255' />
+                <add name='County' type='string' length='255' />                
+                <add name='State' type='string' length='255' />
+                <add name='Zip' type='string' length='10' />                
+                <add name='PartialMatch' type='bool' />
+              </fields>
+              </add>
+          </transforms>
+        </add>
+      </fields>
+    </add>
+  </entities>
+</cfg>";
+         var logger = new ConsoleLogger(LogLevel.Debug);
+         using (var outer = new ConfigurationContainer().CreateScope(xml, logger)) {
+
+            var process = outer.Resolve<Process>();
+            using (var inner = new Container(new GoogleMapsModule(), new AdoProviderModule(), new SqlServerModule()).CreateScope(process, logger)) {
+
+               var controller = inner.Resolve<IProcessController>();
+               controller.Execute();
+
+               Assert.AreEqual((uint)3, process.Entities.First().Inserts);
+            }
+         }
+      }
+
 
       [TestMethod]
       public void Read() {

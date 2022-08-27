@@ -30,6 +30,7 @@
     <PackageReference Include="Transformalize.Provider.Console" Version="0.10.0-beta" />
     <PackageReference Include="Transformalize.Transform.Ado.Autofac" Version="0.10.1-beta" />
     <PackageReference Include="Transformalize.Transform.CSharp.Autofac" Version="0.8.29-beta" />
+    <PackageReference Include="Transformalize.Transform.GoogleMaps.Autofac" Version="0.8.22-beta" />
   </ItemGroup>
 
   <ItemGroup>
