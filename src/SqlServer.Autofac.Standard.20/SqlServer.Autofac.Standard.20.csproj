@@ -4,13 +4,13 @@
       <TargetFramework>netstandard2.0</TargetFramework>
       <RootNamespace>Transformalize.Providers.SqlServer.Autofac</RootNamespace>
       <AssemblyName>Transformalize.Provider.SqlServer.Autofac</AssemblyName>
-      <Version>0.10.7-beta</Version>
-      <FileVersion>0.10.7</FileVersion>
-      <AssemblyVersion>0.10.7</AssemblyVersion>
+      <Version>0.10.9-beta</Version>
+      <FileVersion>0.10.9</FileVersion>
+      <AssemblyVersion>0.10.9</AssemblyVersion>
    </PropertyGroup>
 
    <ItemGroup>
-     <PackageReference Include="Transformalize.Container.Autofac" Version="0.10.7-beta" />
+     <PackageReference Include="Transformalize.Container.Autofac" Version="0.10.9-beta" />
    </ItemGroup>
 
    <ItemGroup>
