@@ -86,7 +86,7 @@ namespace IntegrationTests {
         <add name='Address' length='255'>
           <transforms>
             <add method='google-geocode'
-                 api-key='AIzaSyAo5mpSghJ5eOVGpH0DdFWtcvoPcIHH6Q4'
+                 api-key='*'
                  time='1000'
                  country='United States'>
               <fields>
