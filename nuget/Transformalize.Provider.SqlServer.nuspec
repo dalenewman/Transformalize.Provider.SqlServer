@@ -1,34 +1,28 @@
 <?xml version="1.0"?>
 <package>
-  <metadata>
-    <id>Transformalize.Provider.SqlServer</id>
-    <version>0.10.1-beta</version>
-    <title>Transformalize Transform using SqlServer</title>
-    <authors>Dale Newman</authors>
-    <owners>Dale Newman</owners>
-    <license type="expression">Apache-2.0</license>
-    <projectUrl>https://github.com/dalenewman/Transformalize.Provider.SqlServer</projectUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Transformalize Transform using SqlServer</description>
-    <releaseNotes>general maint</releaseNotes>
-    <copyright>Copyright © 2013-2022</copyright>
-    <tags>etl</tags>
-    <dependencies>
-      <group targetFramework="net462">
-        <dependency id="Transformalize.Provider.Ado" version="0.10.1-beta" />
-        <dependency id="Microsoft.Data.SqlClient" version="4.1.0" />
-      </group>
-      <group targetFramework="netstandard2.0">
-        <dependency id="Transformalize.Provider.Ado" version="0.10.1-beta" />
-        <dependency id="Microsoft.Data.SqlClient" version="4.1.0" />
-      </group>
-    </dependencies>
-  </metadata>
-  <files>
-    <file src="..\src\Transformalize.Provider.SqlServer\bin\Release\Transformalize.Provider.SqlServer.dll" target="lib\net462\Transformalize.Provider.SqlServer.dll" />
-    <!--<file src="..\src\Transformalize.Provider.SqlServer\bin\Release\Transformalize.Provider.SqlServer.pdb" target="lib\net462\Transformalize.Provider.SqlServer.pdb" />-->
-    <file src="..\src\Transformalize.Provider.SqlServer.Standard.20\bin\Release\netstandard2.0\Transformalize.Provider.SqlServer.dll" target="lib\netstandard2.0\Transformalize.Provider.SqlServer.dll" />
-    <file src="..\src\Transformalize.Provider.SqlServer.Standard.20\bin\Release\netstandard2.0\Transformalize.Provider.SqlServer.pdb" target="lib\netstandard2.0\Transformalize.Provider.SqlServer.pdb" />
-    <!--<file src="..\src\Transformalize.Provider.SqlServer.Standard.20\bin\Release\netstandard2.0\Transformalize.Provider.SqlServer.deps.json" target="lib\netstandard2.0\Transformalize.Provider.SqlServer.deps.json" />-->
-  </files>
+   <metadata>
+      <id>Transformalize.Provider.SqlServer</id>
+      <version>0.10.7-beta</version>
+      <title>Transformalize Transform using SqlServer</title>
+      <authors>Dale Newman</authors>
+      <owners>Dale Newman</owners>
+      <license type="expression">Apache-2.0</license>
+      <projectUrl>https://github.com/dalenewman/Transformalize.Provider.SqlServer</projectUrl>
+      <requireLicenseAcceptance>false</requireLicenseAcceptance>
+      <description>Transformalize Transform using SqlServer</description>
+      <releaseNotes>address unordered bulk insert issue</releaseNotes>
+      <copyright>Copyright © 2013-2022</copyright>
+      <tags>etl</tags>
+      <dependencies>
+         <group targetFramework="netstandard2.0">
+            <dependency id="Transformalize.Provider.Ado" version="0.10.2-beta" />
+            <dependency id="Microsoft.Data.SqlClient" version="5.0.0" />
+         </group>
+      </dependencies>
+   </metadata>
+   <files>
+      <file src="..\src\SqlServer.Standard.20\bin\Release\netstandard2.0\Transformalize.Provider.SqlServer.dll" target="lib\netstandard2.0\Transformalize.Provider.SqlServer.dll" />
+      <file src="..\src\SqlServer.Standard.20\bin\Release\netstandard2.0\Transformalize.Provider.SqlServer.deps.json" target="lib\netstandard2.0\Transformalize.Provider.SqlServer.deps.json" />
+      <!--<file src="..\src\Transformalize.Provider.SqlServer.Standard.20\bin\Release\netstandard2.0\Transformalize.Provider.SqlServer.pdb" target="lib\netstandard2.0\Transformalize.Provider.SqlServer.pdb" />-->
+   </files>
 </package>

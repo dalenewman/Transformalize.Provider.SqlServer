@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <IsPackable>false</IsPackable>
+
+    <Version>0.10.7-beta</Version>
+
+    <FileVersion>0.10.7</FileVersion>
+
+    <AssemblyVersion>0.10.7</AssemblyVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.8" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.8" />
+    <PackageReference Include="coverlet.collector" Version="3.1.2" />
+    <PackageReference Include="Transformalize.Container.Autofac" Version="0.10.7-beta" />
+    <PackageReference Include="Transformalize.Provider.Ado.Autofac" Version="0.10.2-beta" />
+    <PackageReference Include="Transformalize.Provider.Bogus.Autofac" Version="0.10.0-beta" />
+    <PackageReference Include="Transformalize.Provider.Console.Autofac" Version="0.10.5-beta" />
+    <PackageReference Include="Transformalize.Transform.Ado.Autofac" Version="0.10.2-beta" />
+    <PackageReference Include="Transformalize.Transform.CSharp.Autofac" Version="0.8.29-beta" />
+    <PackageReference Include="Transformalize.Transform.GoogleMaps.Autofac" Version="0.8.22-beta" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SqlServer.Autofac.Standard.20\SqlServer.Autofac.Standard.20.csproj" />
+  </ItemGroup>
+
+  <Import Project="..\IntegrationTests.Shared\IntegrationTests.Shared.projitems" Label="Shared" />
+
+</Project>

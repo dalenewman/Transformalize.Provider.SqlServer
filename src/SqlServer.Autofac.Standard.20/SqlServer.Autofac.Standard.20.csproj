@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+   <PropertyGroup>
+      <TargetFramework>netstandard2.0</TargetFramework>
+      <RootNamespace>Transformalize.Providers.SqlServer.Autofac</RootNamespace>
+      <AssemblyName>Transformalize.Provider.SqlServer.Autofac</AssemblyName>
+      <Version>0.10.7-beta</Version>
+      <FileVersion>0.10.7</FileVersion>
+      <AssemblyVersion>0.10.7</AssemblyVersion>
+   </PropertyGroup>
+
+   <ItemGroup>
+     <PackageReference Include="Transformalize.Container.Autofac" Version="0.10.7-beta" />
+   </ItemGroup>
+
+   <ItemGroup>
+     <ProjectReference Include="..\SqlServer.Standard.20\SqlServer.Standard.20.csproj" />
+   </ItemGroup>
+
+</Project>

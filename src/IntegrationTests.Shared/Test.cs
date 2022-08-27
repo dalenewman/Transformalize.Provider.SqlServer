@@ -86,7 +86,7 @@ namespace IntegrationTests {
         <add name='Address' length='255'>
           <transforms>
             <add method='google-geocode'
-                 api-key='vlads-secret'
+                 api-key='AIzaSyAo5mpSghJ5eOVGpH0DdFWtcvoPcIHH6Q4'
                  time='1000'
                  country='United States'>
               <fields>
@@ -120,7 +120,7 @@ namespace IntegrationTests {
                var controller = inner.Resolve<IProcessController>();
                controller.Execute();
 
-               Assert.AreEqual((uint)3, process.Entities.First().Inserts);
+               Assert.AreEqual((uint)12, process.Entities.First().Inserts);
             }
          }
       }
