@@ -17,7 +17,6 @@
 #endregion
 
 using Autofac;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Text.RegularExpressions;
 using Transformalize.Configuration;
 using Transformalize.Containers.Autofac;
