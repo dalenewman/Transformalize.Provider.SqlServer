@@ -1,52 +1,53 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <IsPackable>false</IsPackable>
-    <Version>0.10.10-beta</Version>
-    <FileVersion>0.10.10</FileVersion>
-    <AssemblyVersion>0.10.10</AssemblyVersion>
-  </PropertyGroup>
+   <PropertyGroup>
+      <TargetFramework>net8.0</TargetFramework>
+      <ImplicitUsings>enable</ImplicitUsings>
+      <Nullable>enable</Nullable>
+      <IsPackable>false</IsPackable>
+      <Version>0.11.1-beta</Version>
+      <FileVersion>0.11.1</FileVersion>
+      <AssemblyVersion>0.11.1</AssemblyVersion>
+   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="files\DeleteIntegration.xml" />
-    <None Remove="files\NorthWind.xml" />
-    <None Remove="files\SlaveGetsInsert.xml" />
-  </ItemGroup>
+   <ItemGroup>
+      <None Remove="files\DeleteIntegration.xml" />
+      <None Remove="files\NorthWind.xml" />
+      <None Remove="files\SlaveGetsInsert.xml" />
+   </ItemGroup>
 
-  <ItemGroup>
-    <Content Include="files\DeleteIntegration.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="files\NorthWind.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="files\SlaveGetsInsert.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+   <ItemGroup>
+      <Content Include="files\DeleteIntegration.xml">
+         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="files\NorthWind.xml">
+         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+         <SubType>Designer</SubType>
+      </Content>
+      <Content Include="files\SlaveGetsInsert.xml">
+         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="3.2.0" />
-    <PackageReference Include="MSTest.TestFramework" Version="3.2.0" />
-    <PackageReference Include="coverlet.collector" Version="6.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Transformalize.Container.Autofac" Version="0.10.12-beta" />
-    <PackageReference Include="Transformalize.Provider.Ado.Autofac" Version="0.10.3-beta" />
-    <PackageReference Include="Transformalize.Provider.Bogus.Autofac" Version="0.10.0-beta" />
-    <PackageReference Include="Transformalize.Provider.Console.Autofac" Version="0.10.5-beta" />
-    <PackageReference Include="Transformalize.Transform.Ado.Autofac" Version="0.10.3-beta" />
-    <PackageReference Include="Transformalize.Transform.CSharp.Autofac" Version="0.8.29-beta" />
-  </ItemGroup>
+   <ItemGroup>
+      <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
+      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+      <PackageReference Include="MSTest.TestAdapter" Version="3.7.1" />
+      <PackageReference Include="MSTest.TestFramework" Version="3.7.1" />
+      <PackageReference Include="coverlet.collector" Version="6.0.3">
+         <PrivateAssets>all</PrivateAssets>
+         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Transformalize.Container.Autofac" Version="0.11.1-beta" />
+      <PackageReference Include="Transformalize.Provider.Ado.Autofac" Version="0.11.1-beta" />
+      <PackageReference Include="Transformalize.Provider.Bogus.Autofac" Version="0.11.1-beta" />
+      <PackageReference Include="Transformalize.Provider.Console.Autofac" Version="0.11.1-beta" />
+      <PackageReference Include="Transformalize.Transform.Ado.Autofac" Version="0.11.1-beta" />
+      <PackageReference Include="Transformalize.Transform.CSharp.Autofac" Version="0.11.1-beta" />
+   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Transformalize.Provider.SqlServer.Autofac\Transformalize.Provider.SqlServer.Autofac.csproj" />
-  </ItemGroup>
+   <ItemGroup>
+      <ProjectReference Include="..\Transformalize.Provider.SqlServer.Autofac\Transformalize.Provider.SqlServer.Autofac.csproj" />
+   </ItemGroup>
 
 </Project>

@@ -35,7 +35,6 @@ namespace IntegrationTests {
       public Connection InputConnection { get; set; } = new Connection {
          Name = "input",
          Provider = "sqlserver",
-         // ConnectionString = "server=localhost;database=NorthWind;trusted_connection=true;"
          ConnectionString = $"server=localhost;database=NorthWind;User Id={Tester.User};Password={Tester.Pw};Trust Server Certificate=True"
       };
 
