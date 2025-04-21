@@ -5,9 +5,9 @@
       <ImplicitUsings>enable</ImplicitUsings>
       <Nullable>enable</Nullable>
       <IsPackable>false</IsPackable>
-      <Version>0.11.1-beta</Version>
-      <FileVersion>0.11.1</FileVersion>
-      <AssemblyVersion>0.11.1</AssemblyVersion>
+      <Version>0.11.2-beta</Version>
+      <FileVersion>0.11.2</FileVersion>
+      <AssemblyVersion>0.11.2</AssemblyVersion>
    </PropertyGroup>
 
    <ItemGroup>
@@ -39,10 +39,10 @@
          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="Transformalize.Container.Autofac" Version="0.11.1-beta" />
-      <PackageReference Include="Transformalize.Provider.Ado.Autofac" Version="0.11.1-beta" />
+      <PackageReference Include="Transformalize.Provider.Ado.Autofac" Version="0.11.2-beta" />
       <PackageReference Include="Transformalize.Provider.Bogus.Autofac" Version="0.11.1-beta" />
       <PackageReference Include="Transformalize.Provider.Console.Autofac" Version="0.11.1-beta" />
-      <PackageReference Include="Transformalize.Transform.Ado.Autofac" Version="0.11.1-beta" />
+      <PackageReference Include="Transformalize.Transform.Ado.Autofac" Version="0.11.2-beta" />
       <PackageReference Include="Transformalize.Transform.CSharp.Autofac" Version="0.11.1-beta" />
    </ItemGroup>
 
