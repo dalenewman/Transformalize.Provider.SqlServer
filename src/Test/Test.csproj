@@ -12,12 +12,20 @@
 
    <ItemGroup>
       <None Remove="files\DeleteIntegration.xml" />
+      <None Remove="files\instnwnd.sql" />
+      <None Remove="files\northwind-rowversion.sql" />
       <None Remove="files\NorthWind.xml" />
       <None Remove="files\SlaveGetsInsert.xml" />
    </ItemGroup>
 
    <ItemGroup>
       <Content Include="files\DeleteIntegration.xml">
+         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="files\instnwnd.sql">
+         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="files\northwind-rowversion.sql">
          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
       <Content Include="files\NorthWind.xml">
@@ -34,6 +42,7 @@
       <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
       <PackageReference Include="MSTest.TestAdapter" Version="3.7.1" />
       <PackageReference Include="MSTest.TestFramework" Version="3.7.1" />
+      <PackageReference Include="Testcontainers.MsSql" Version="4.6.0" />
       <PackageReference Include="coverlet.collector" Version="6.0.3">
          <PrivateAssets>all</PrivateAssets>
          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

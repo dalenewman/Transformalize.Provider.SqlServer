@@ -23,7 +23,7 @@ namespace IntegrationTests {
       <add name='Mode' value='default' />
    </parameters>
    <connections>
-      <add name='input' provider='sqlserver' server='localhost' database='Junk' user='{Tester.User}' password='{Tester.Pw}' />
+      <add name='input' provider='sqlserver' server='{Tester.Server},{Tester.Port}' encrypt='true' trust-server-certificate='true' database='Junk' user='{Tester.User}' password='{Tester.Pw}' />
    </connections>
    <entities>
       <add name='TestData' alias='Data'>

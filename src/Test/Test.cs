@@ -42,7 +42,7 @@ namespace IntegrationTests {
   </parameters>
   <connections>
     <add name='input' provider='bogus' seed='1' />
-    <add name='output' provider='sqlserver' encrypt='true' trust-server-certificate='true' database='Junk' user='{Tester.User}' password='{Tester.Pw}' />
+    <add name='output' provider='sqlserver' server='{Tester.Server},{Tester.Port}' encrypt='true' trust-server-certificate='true' database='Junk' user='{Tester.User}' password='{Tester.Pw}' />
   </connections>
   <entities>
     <add name='Contact' size='@[Size]'>
@@ -71,7 +71,7 @@ namespace IntegrationTests {
 
          var readXml = $@"<add name='Bogus'>
   <connections>
-    <add name='input' provider='sqlserver' database='Junk' user='{Tester.User}' password='{Tester.Pw}' />
+    <add name='input' provider='sqlserver' server='{Tester.Server},{Tester.Port}' encrypt='true' trust-server-certificate='true' database='Junk' user='{Tester.User}' password='{Tester.Pw}' />
     <add name='output' provider='internal' />
   </connections>
   <entities>
@@ -107,7 +107,7 @@ namespace IntegrationTests {
      <add name='Id' value='2' />
   </parameters>
   <connections>
-    <add name='input' provider='sqlserver' database='Junk' user='{Tester.User}' password='{Tester.Pw}' />
+    <add name='input' provider='sqlserver' server='{Tester.Server},{Tester.Port}' encrypt='true' trust-server-certificate='true' database='Junk' user='{Tester.User}' password='{Tester.Pw}' />
     <add name='output' provider='internal' />
   </connections>
   <entities>
@@ -149,7 +149,7 @@ namespace IntegrationTests {
          var xml = $@"<add name='Test'>
   <connections>
     <add name='input' provider='internal' />
-    <add name='northwind' provider='sqlserver' server='localhost' database='NorthWind' user='{Tester.User}' password='{Tester.Pw}' />
+    <add name='northwind' provider='sqlserver' server='{Tester.Server},{Tester.Port}' encrypt='true' trust-server-certificate='true' database='NorthWind' user='{Tester.User}' password='{Tester.Pw}' />
     <add name='output' provider='internal' />
   </connections>
   <entities>
@@ -203,7 +203,7 @@ namespace IntegrationTests {
          var xml = $@"<add name='Test'>
   <connections>
     <add name='input' provider='internal' />
-    <add name='junk' provider='sqlserver' server='localhost' database='Junk' user='{Tester.User}' password='{Tester.Pw}' />
+    <add name='junk' provider='sqlserver' server='{Tester.Server},{Tester.Port}' encrypt='true' trust-server-certificate='true' database='Junk' user='{Tester.User}' password='{Tester.Pw}' />
     <add name='output' provider='internal' />
   </connections>
   <entities>

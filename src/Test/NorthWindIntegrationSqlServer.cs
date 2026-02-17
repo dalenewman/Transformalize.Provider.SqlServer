@@ -33,37 +33,25 @@ namespace IntegrationTests {
    [TestClass]
    public class NorthWindIntegrationSqlServer {
 
-      public string TestFile { get; set; } = $@"Files\NorthWind.xml?User={Tester.User}&Pw={Tester.Pw}";
+      public string TestFile { get; set; } = $@"files/NorthWind.xml?Server={Tester.Server},{Tester.Port}&User={Tester.User}&Pw={Tester.Pw}";
 
       public Connection InputConnection { get; set; } = new Connection {
          Name = "input",
          Provider = "sqlserver",
-         // ConnectionString = "server=localhost;database=NorthWind;trusted_connection=true;"
-         ConnectionString = $"server=localhost;database=NorthWind;User Id={Tester.User};Password={Tester.Pw};Trust Server Certificate=True"
+         ConnectionString = Tester.GetConnectionString("NorthWind")
       };
 
       public Connection OutputConnection { get; set; } = new Connection {
          Name = "output",
          Provider = "sqlserver",
-         ConnectionString = $"server=localhost;database=TflNorthWind;User Id={Tester.User};Password={Tester.Pw};Trust Server Certificate=True"
+         ConnectionString = Tester.GetConnectionString("TflNorthWind")
       };
 
       [TestMethod]
       //[Ignore]
       public void SqlServer_Integration() {
 
-         // If you need the Northwind database, it's here: https://github.com/microsoft/sql-server-samples/raw/master/samples/databases/northwind-pubs/instnwnd.sql
-         /* You'll also need to:
-            ALTER TABLE [Order Details] ADD [RowVersion] ROWVERSION;
-            ALTER TABLE [Orders] ADD [RowVersion] ROWVERSION;
-            ALTER TABLE [Customers] ADD [RowVersion] ROWVERSION;
-            ALTER TABLE [Employees] ADD [RowVersion] ROWVERSION;
-            ALTER TABLE [Products] ADD [RowVersion] ROWVERSION;
-            ALTER TABLE [Suppliers] ADD [RowVersion] ROWVERSION;
-            ALTER TABLE [Categories] ADD [RowVersion] ROWVERSION;
-            ALTER TABLE [Shippers] ADD [RowVersion] ROWVERSION;
-            CREATE DATABASE TflNorthwind; */
-
+         // Northwind database is automatically initialized by TestContainers
          var logger = new ConsoleLogger();
 
          // CORRECT DATA AND INITIAL LOAD
