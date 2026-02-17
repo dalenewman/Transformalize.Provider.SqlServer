@@ -35,13 +35,13 @@ namespace IntegrationTests {
       public Connection InputConnection { get; set; } = new Connection {
          Name = "input",
          Provider = "sqlserver",
-         ConnectionString = $"server=localhost;database=NorthWind;User Id={Tester.User};Password={Tester.Pw};Trust Server Certificate=True"
+         ConnectionString = Tester.GetConnectionString("NorthWind")
       };
 
       public Connection OutputConnection { get; set; } = new Connection {
          Name = "output",
          Provider = "sqlserver",
-         ConnectionString = $"server=localhost;database=TflNorthWind;User Id={Tester.User};Password={Tester.Pw};Trust Server Certificate=True"
+         ConnectionString = Tester.GetConnectionString("TflNorthWind")
       };
 
       [TestMethod]
@@ -49,7 +49,7 @@ namespace IntegrationTests {
 
          var logger = new ConsoleLogger(LogLevel.Debug);
 
-         var cfg = $@"files\DeleteIntegration.xml?User={Tester.User}&Pw={Tester.Pw}";
+         var cfg = $@"files/DeleteIntegration.xml?Server={Tester.Server},{Tester.Port}&User={Tester.User}&Pw={Tester.Pw}";
 
          // INITIALIZE INPUT
          using (var cn = new SqlServerConnectionFactory(InputConnection).GetConnection()) {
